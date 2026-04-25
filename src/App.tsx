@@ -3,10 +3,28 @@ import reactLogo from "./assets/react.svg";
 import viteLogo from "./assets/vite.svg";
 import heroImg from "./assets/hero.png";
 import "./index.css";
-
+import ProductCard from "./components/ProductCard";
+import BasketItem from "./components/BasketItem";
 function App() {
   const [count, setCount] = useState(0);
+  const exampleProduct = {
+  id: 1,
+  name: "Test Coffee",
+  image: "https://via.placeholder.com/200",
+  price: 40,
+  originalPrice: 50,
+  discount: 20,
+  country: "Brazil",
+  brand: "Test Brand",
+};
 
+const exampleBasketItem = {
+  productId: 1,
+  name: "Test Coffee",
+  price: 40,
+  image: "https://via.placeholder.com/100",
+  quantity: 2,
+};
   return (
     <>
       <section id="center">
@@ -27,6 +45,19 @@ function App() {
         >
           Count is {count}
         </button>
+      </section>
+      <section>
+      <h2>Test Components</h2>
+
+      <h3>ProductCard</h3>
+      <ProductCard product={exampleProduct} />
+
+      <h3>BasketItem</h3>
+      <BasketItem
+        item={exampleBasketItem}
+        onRemove={() => {}}
+        onUpdateQuantity={() => {}}
+      />
       </section>
 
       <div className="ticks"></div>
@@ -116,6 +147,7 @@ function App() {
       <section id="spacer"></section>
     </>
   );
+  
 }
 
 export default App;
