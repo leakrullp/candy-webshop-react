@@ -304,6 +304,10 @@ body {
   border-radius: 12px;
 }
 
+.basket-info {
+  flex: 1; /* THIS is the key */
+}
+
 .remove-btn {
   background: transparent;
   border: 1px solid var(--beige);
@@ -314,11 +318,41 @@ body {
   font-size: 0.85rem;
   font-weight: 600;
   transition: all 0.3s ease;
+  margin-left: auto;
 }
 
 .remove-btn:hover {
   background: var(--beige);
   color: white;
+}
+/* Quantity controls Basket */
+.quantity-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 0.5rem;
+}
+
+.quantity-controls button {
+  background: var(--beige);
+  color: white;
+  border: none;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.2s ease;
+}
+
+.quantity-controls button:hover {
+  transform: scale(1.1);
+}
+
+.quantity-controls span {
+  min-width: 20px;
+  text-align: center;
+  font-weight: 600;
 }
 
 /* Media queries */
