@@ -1,15 +1,8 @@
-type Product = {
-  id: number;
-  name: string;
-  image: string;
-  price: number;          // already calculated
-  originalPrice: number;
-  discount: number;
-  country: string;
-  brand: string;
-};
+import {calculateDiscountedPrice, type Product} from "../services/productsService";
 
 const ProductCard = ({ product }: { product: Product }) => {
+  const price = calculateDiscountedPrice(product);
+
   const handleViewDetails = () => {
     localStorage.setItem("selectedProductId", product.id.toString());
     window.location.href = "/Products/productDetails.html";
@@ -32,11 +25,11 @@ const ProductCard = ({ product }: { product: Product }) => {
             <del>Old price: {product.originalPrice} kr.</del>
           </p>
           <p style={{ backgroundColor: "#ffff00" }}>
-            New price {product.price.toFixed(2)} kr.
+            New price {price.toFixed(2)} kr.
           </p>
         </>
       ) : (
-        <p>Price: {product.price} kr.</p>
+        <p>Price: {price.toFixed(2)} kr.</p>
       )}
 
       <p>Country: {product.country}</p>
