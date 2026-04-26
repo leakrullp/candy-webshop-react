@@ -4,6 +4,7 @@ import ProductCard from "./components/ProductCard";
 import BasketItem from "./components/BasketItem";
 import ProductsPage from "./pages/ProductsPage";
 import { type Product } from "./services/productsService";
+import BasketPage from "./pages/BasketPage";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -62,6 +63,10 @@ function App() {
     <section>
       <h2>Products Page Test</h2>
       <ProductsPage />
+    </section>
+    <section>
+      <h2>Basket Page Test</h2>
+      <BasketPage />
     </section>
     </>
   );

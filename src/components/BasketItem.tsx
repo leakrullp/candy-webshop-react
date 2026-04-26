@@ -1,11 +1,7 @@
+import { type BasketProduct, calculateItemTotal } from "../services/basketService";
+
 type BasketItemProps = {
-  item: {
-    productId: number;
-    name: string;
-    price: number;
-    image: string;
-    quantity: number;
-  };
+  item: BasketProduct;
   onRemove: (id: number) => void;
   onUpdateQuantity: (id: number, quantity: number) => void;
 };
@@ -36,7 +32,7 @@ const BasketItem = ({
       <div className="basket-info">
         <h3>{item.name}</h3>
         <p>{item.price} kr.</p>
-        <p>Total: {(item.price * item.quantity).toFixed(2)} kr.</p>
+        <p>Total: {calculateItemTotal(item).toFixed(2)} kr.</p>
       </div>
       <div className="quantity-controls">
           <button onClick={decrease}>−</button>
