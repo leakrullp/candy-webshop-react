@@ -65,39 +65,6 @@ body {
   filter: invert(1);
 }
 
-/* Navbar */
-#navbar {
-  display: flex;
-  justify-content: center;
-  gap: 3rem;
-  padding: 2rem 1rem;
-  background: var(--white);
-}
-
-#navbar a {
-  text-decoration: none;
-  color: var(--text-dark);
-  font-weight: 500;
-  font-size: 0.95rem;
-  letter-spacing: 0.5px;
-  position: relative;
-}
-
-#navbar a::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: -6px;
-  width: 0%;
-  height: 1px;
-  background: var(--beige);
-  transition: width 0.3s ease;
-}
-
-#navbar a:hover::after {
-  width: 100%;
-}
-
 /* Products grid */
 #products-container {
   max-width: 1200px;

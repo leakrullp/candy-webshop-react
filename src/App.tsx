@@ -1,13 +1,12 @@
-import { useState } from "react";
 import "./index.css";
 import ProductCard from "./components/ProductCard";
 import BasketItem from "./components/BasketItem";
 import ProductsPage from "./pages/ProductsPage";
 import { type Product } from "./services/productsService";
 import BasketPage from "./pages/BasketPage";
+import Navbar from "./components/Navbar/Navbar";
 
 function App() {
-  const [count, setCount] = useState(0);
   const exampleProduct: Product = {
     id: 1,
     name: "Test Coffee",
@@ -33,41 +32,28 @@ function App() {
   };
   return (
     <>
-      <section id="center">
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
+      <Navbar />
+      <section>
+        <h2>Test Components</h2>
+
+        <h3>ProductCard</h3>
+        <ProductCard product={exampleProduct} />
+
+        <h3>BasketItem</h3>
+        <BasketItem
+          item={exampleBasketItem}
+          onRemove={() => {}}
+          onUpdateQuantity={() => {}}
+        />
       </section>
       <section>
-      <h2>Test Components</h2>
-
-      <h3>ProductCard</h3>
-      <ProductCard product={exampleProduct} />
-
-      <h3>BasketItem</h3>
-      <BasketItem
-        item={exampleBasketItem}
-        onRemove={() => {}}
-        onUpdateQuantity={() => {}}
-      />
-    </section>
-    <section>
-      <h2>Products Page Test</h2>
-      <ProductsPage />
-    </section>
-    <section>
-      <h2>Basket Page Test</h2>
-      <BasketPage />
-    </section>
+        <h2>Products Page Test</h2>
+        <ProductsPage />
+      </section>
+      <section>
+        <h2>Basket Page Test</h2>
+        <BasketPage />
+      </section>
     </>
   );
 }
