@@ -1,11 +1,14 @@
-import {calculateDiscountedPrice, type Product} from "../services/productsService";
+import {
+  calculateDiscountedPrice,
+  type Product,
+} from "../services/productsService";
 
 const ProductCard = ({ product }: { product: Product }) => {
   const price = calculateDiscountedPrice(product);
 
   const handleViewDetails = () => {
     localStorage.setItem("selectedProductId", product.id.toString());
-    window.location.href = "/Products/productDetails.html";
+    window.location.href = "/Products/productDetails.html"; //this won't work as we don't have that HTML page
   };
 
   const handleAddToCart = async () => {
@@ -35,13 +38,9 @@ const ProductCard = ({ product }: { product: Product }) => {
       <p>Country: {product.country}</p>
       <p>Brand: {product.brand}</p>
 
-      <button onClick={handleViewDetails}>
-        View Details
-      </button>
+      <button onClick={handleViewDetails}>View Details</button>
 
-      <button onClick={handleAddToCart}>
-        Add to Cart
-      </button>
+      <button onClick={handleAddToCart}>Add to Cart</button>
     </div>
   );
 };

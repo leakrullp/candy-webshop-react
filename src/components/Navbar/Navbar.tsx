@@ -1,6 +1,8 @@
 import { numberOfProductsInCart } from "../../utils/cartUtils";
 import "./Navbar.css";
 
+//TODO: needs a refactor to reflect real user data
+
 export default function Navbar() {
   const user = localStorage.getItem("fname");
   let userId = user ? user.slice(0, 2).toUpperCase() : "Login";
