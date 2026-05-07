@@ -15,6 +15,14 @@ export interface Product {
   dateAdded: string; //format: YYYY-MM-DD
 }
 
+export type BasketProduct = {
+  productId: number;
+  name: string;
+  price: number;
+  image: string;
+  quantity: number;
+};
+
 export interface Data {
   products: Product[];
 }
