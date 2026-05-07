@@ -179,8 +179,9 @@ body {
 }
 
 #product-image {
+  width: 100%;
   max-width: 450px;
-  align-self: center;
+  border-radius: 18px;
 }
 
 #product-details-container {

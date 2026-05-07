@@ -5,6 +5,7 @@ import BasketItem from "./components/BasketItem";
 import ProductsPage from "./pages/ProductsPage";
 import { type Product } from "./services/productsService";
 import BasketPage from "./pages/BasketPage";
+import ProductDetailPage from "./pages/ProductDetailPage";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -31,6 +32,8 @@ function App() {
     image: "https://via.placeholder.com/100",
     quantity: 2,
   };
+
+  localStorage.setItem("selectedProductId", "1");
   return (
     <>
       <section id="center">
@@ -67,6 +70,10 @@ function App() {
     <section>
       <h2>Basket Page Test</h2>
       <BasketPage />
+    </section>
+    <section>
+      <h2>Product Detail Page Test</h2>
+      <ProductDetailPage />
     </section>
     </>
   );
