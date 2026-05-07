@@ -2,6 +2,10 @@ import "./index.css";
 import ProductsPage from "./pages/ProductsPage";
 import BasketPage from "./pages/BasketPage";
 import Navbar from "./components/Navbar/Navbar";
+import { fetchProducts } from "./services/productsService";
+import type { Product } from "../src/types/index";
+
+const products: Promise<Product[]> = fetchProducts();
 
 function App() {
   return (
@@ -18,5 +22,7 @@ function App() {
     </>
   );
 }
+
+console.log(products);
 
 export default App;
