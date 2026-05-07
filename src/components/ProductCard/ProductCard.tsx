@@ -1,10 +1,9 @@
-import {
-  calculateDiscountedPrice,
-  type Product,
-} from "../services/productsService";
+import { getCurrentPrice } from "../../utils/priceUtils";
+import type { Product } from "../../types/index";
+import "./ProductCard.css";
 
-const ProductCard = ({ product }: { product: Product }) => {
-  const price = calculateDiscountedPrice(product);
+export const ProductCard = ({ product }: { product: Product }) => {
+  const price = getCurrentPrice(product);
 
   const handleViewDetails = () => {
     localStorage.setItem("selectedProductId", product.id.toString());
