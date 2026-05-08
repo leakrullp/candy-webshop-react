@@ -1,14 +1,22 @@
+import { useState, useEffect } from "react";
 import "./index.css";
 import ProductsPage from "./pages/ProductsPage";
 import BasketPage from "./pages/BasketPage";
 import Navbar from "./components/Navbar/Navbar";
+import { FrontPage } from "./pages/FrontPage/FrontPage";
+import { ProductBanner } from "./components/ProductBanner/ProductBanner";
+
+import type { Product } from "../src/types/index";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import { loginUser, registerUser } from "./services/authService";
 
 function AppContent() {
+  
   const navigate = useNavigate();
+
+  
 
   const handleLogin = async (email: string, password: string) => {
     const customer = await loginUser(email, password);
@@ -33,11 +41,13 @@ function AppContent() {
     }
   };
 
+
   return (
     <>
       <Navbar />
+
       <Routes>
-        <Route path="/" element={<ProductsPage />} />
+        <Route path="/" element={<FrontPage />} />
         <Route path="/ProductsPage" element={<ProductsPage />} />
         <Route path="/login" element={<Login onLogin={handleLogin} />} />
         <Route path="/cart" element={<BasketPage />} />

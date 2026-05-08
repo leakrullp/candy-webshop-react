@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
-import ProductCard from "../components/ProductCard";
-import { fetchProducts, type Product } from "../services/productsService";
+import ProductCard from "../components/ProductCard/ProductCard";
+import { fetchProducts } from "../services/productsService";
+import type { Product } from "../types";
 import "../index.css";
 
 export default function ProductsPage() {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  
 
   async function loadProducts() {
     setLoading(true);
@@ -21,7 +21,7 @@ export default function ProductsPage() {
       setError("Failed to load products.");
     } finally {
       setLoading(false);
-    } 
+    }
   }
 
   useEffect(() => {
@@ -31,12 +31,11 @@ export default function ProductsPage() {
   // Loading and error states
   if (loading) {
     return <div className="PageTitle">Loading products...</div>;
-  } 
+  }
 
   if (error) {
     return <div className="PageTitle">{error}</div>;
   }
-
 
   return (
     <main>
@@ -47,4 +46,4 @@ export default function ProductsPage() {
       </div>
     </main>
   );
-};
+}
