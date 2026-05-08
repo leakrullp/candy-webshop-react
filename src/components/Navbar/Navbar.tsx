@@ -1,26 +1,27 @@
+import { Link } from "react-router-dom";
 import { numberOfProductsInCart } from "../../utils/cartUtils";
 import "./Navbar.css";
 
 //TODO: needs a refactor to reflect real user data
 
-export default function Navbar() {
-  const user = localStorage.getItem("fname");
-  let userId = user ? user.slice(0, 2).toUpperCase() : "Login";
-  let logClass = user ? "profText" : "";
+export default function Navbar(){
+  const user: string | null = localStorage.getItem("fname");
+  const userId: string = user ? user.slice(0, 2).toUpperCase() : "Login";
+  const logClass: string = user ? "profText" : "";
 
   return (
     <nav className="navbar">
-      <a href="#placeholder">Home</a>
-      <a href="#placeholder">Products</a>
-      <a className={logClass} href="#placeholder">
+      <Link to="/">Home</Link>
+      <Link to="/ProductsPage">Products</Link>
+      <Link className={logClass} to="/login">
         {userId}
-      </a>
-      <a href="#placeholder">
+      </Link>
+      <Link to="/cart">
         Cart
         <span id="cart-count" className="cart-count">
           {numberOfProductsInCart()}
         </span>
-      </a>
+      </Link>
     </nav>
   );
 }
