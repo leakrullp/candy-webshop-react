@@ -1,22 +1,24 @@
-import { useState, useEffect } from "react";
 import "./index.css";
 import ProductsPage from "./pages/ProductsPage";
 import BasketPage from "./pages/BasketPage";
 import Navbar from "./components/Navbar/Navbar";
 import { FrontPage } from "./pages/FrontPage/FrontPage";
-import { ProductBanner } from "./components/ProductBanner/ProductBanner";
-
-import type { Product } from "../src/types/index";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import { loginUser, registerUser } from "./services/authService";
 
 function AppContent() {
-  
   const navigate = useNavigate();
 
-  
+  // POTENTIAL STATES TO KEEP GLOBALLY
+
+  // basket items so we can read the number and use in navbar
+  // const [items, setItems] = useState<BasketProduct[]>([]);
+
+  // fetch products once and keep around, instead of loading from server constantly
+  // then we just pass the products down as a prop to FrontPage, BasketPage, ProductsPage etc.
+  // const [products, setProducts] = useState<Product[]>([]);
 
   const handleLogin = async (email: string, password: string) => {
     const customer = await loginUser(email, password);
@@ -31,7 +33,7 @@ function AppContent() {
     fname: string,
     lname: string,
     email: string,
-    password: string
+    password: string,
   ) => {
     const customer = await registerUser(fname, lname, email, password);
     if (customer) {
@@ -41,11 +43,9 @@ function AppContent() {
     }
   };
 
-
   return (
     <>
       <Navbar />
-
       <Routes>
         <Route path="/" element={<FrontPage />} />
         <Route path="/ProductsPage" element={<ProductsPage />} />
