@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ProductCard } from "../ProductCard/ProductCard.tsx";
+import { ProductCard } from "../index.ts";
 import type { Product } from "../../types/index.ts";
 import "./ProductBanner.css";
 
@@ -12,7 +12,11 @@ type Props = {
 const VISIBLE = 4;
 const CARD_WIDTH = 276 + 32; // width + gap
 
-export function ProductBanner({ title, products, filter = () => true }: Props) {
+export default function ProductBanner({
+  title,
+  products,
+  filter = () => true,
+}: Props) {
   const filtered = products.filter(filter);
   const [index, setIndex] = useState(0);
 

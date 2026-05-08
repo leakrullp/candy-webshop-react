@@ -1,12 +1,14 @@
 import "./index.css";
-import ProductsPage from "./pages/ProductsPage";
-import BasketPage from "./pages/BasketPage";
 import Navbar from "./components/Navbar/Navbar";
-import { FrontPage } from "./pages/FrontPage/FrontPage";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
 import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import { loginUser, registerUser } from "./services/authService";
+import {
+  FrontPage,
+  BasketPage,
+  ProductsPage,
+  Login,
+  Register,
+} from "./pages/index";
 
 function AppContent() {
   const navigate = useNavigate();

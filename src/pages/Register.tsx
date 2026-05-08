@@ -5,7 +5,7 @@ interface RegisterProps {
     fname: string,
     lname: string,
     password: string,
-    email: string
+    email: string,
   ) => void;
 }
 const isValidEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,}$/;
@@ -29,7 +29,7 @@ const Register: React.FC<RegisterProps> = ({ onRegister }) => {
     e.preventDefault();
     setError("");
 
-    if (!fname || !lname || !email || !password ) {
+    if (!fname || !lname || !email || !password) {
       setError("Please fill in all fields.");
       return;
     }

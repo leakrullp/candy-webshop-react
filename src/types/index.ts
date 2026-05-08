@@ -22,7 +22,3 @@ export type BasketProduct = {
   image: string;
   quantity: number;
 };
-
-export interface Data {
-  products: Product[];
-}

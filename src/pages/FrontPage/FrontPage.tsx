@@ -1,15 +1,14 @@
 import { useState, useEffect } from "react";
 import type { Product } from "../../types/index";
-import { ProductBanner } from "../../components/ProductBanner/ProductBanner";
-import { fetchProducts } from "../../services/productsService"
+import { ProductBanner } from "../../components/index";
+import { fetchProducts } from "../../services/productsService";
 
-export function FrontPage() {
-  //states
+export default function FrontPage() {
+  //fetch all products once for this page instead of once per ProductBanner
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  //useeffect hook
   useEffect(() => {
     fetchProducts()
       .then(setProducts)
@@ -17,7 +16,6 @@ export function FrontPage() {
       .finally(() => setLoading(false));
   }, []);
 
-  //return
   return (
     <>
       {error && <p>{error}</p>}
