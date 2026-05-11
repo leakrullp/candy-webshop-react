@@ -1,5 +1,4 @@
-import { type Product } from "../services/productsService";
-import { type BasketProduct } from "../services/basketService";
+import type { Product, BasketProduct } from "../types";
 
 export function addToCart(productId: number) {
   let productsInCart =
