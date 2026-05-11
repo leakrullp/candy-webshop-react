@@ -1,5 +1,5 @@
 import { getCurrentPrice } from "../../utils/priceUtils";
-import type { Product } from "../../types/index";
+import type { Product } from "../../types";
 import "./ProductCard.css";
 
 export const ProductCard = ({ product }: { product: Product }) => {

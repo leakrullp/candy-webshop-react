@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import type { Product } from "../../types/index";
-import { ProductBanner } from "../../components/index";
+import type { Product } from "../../types";
+import { ProductBanner } from "../../components";
 import { fetchProducts } from "../../services/productsService";
 
 export default function FrontPage() {

@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import ProductCard from "../components/ProductCard/ProductCard";
 import { fetchProducts } from "../services/productsService";
 import type { Product } from "../types";
 import "../index.css";
+import { ProductGrid } from "../components";
 
 export default function ProductsPage() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -38,12 +38,8 @@ export default function ProductsPage() {
   }
 
   return (
-    <main>
-      <div id="products-container">
-        {products.map((product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
-      </div>
-    </main>
+    <>
+      <ProductGrid products={products} />
+    </>
   );
 }

@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { ProductCard } from "../index.ts";
-import type { Product } from "../../types/index.ts";
+import { ProductCard } from "../index";
+import type { Product } from "../../types";
 import "./ProductBanner.css";
 
 type Props = {
