@@ -1,7 +1,9 @@
-import {calculateDiscountedPrice, type Product} from "../services/productsService";
+import { getCurrentPrice } from "../../utils/priceUtils";
+import type { Product } from "../../types";
+import "./ProductCard.css";
 
-const ProductCard = ({ product }: { product: Product }) => {
-  const price = calculateDiscountedPrice(product);
+export const ProductCard = ({ product }: { product: Product }) => {
+  const price = getCurrentPrice(product);
 
   const handleViewDetails = () => {
     localStorage.setItem("selectedProductId", product.id.toString());
@@ -35,13 +37,9 @@ const ProductCard = ({ product }: { product: Product }) => {
       <p>Country: {product.country}</p>
       <p>Brand: {product.brand}</p>
 
-      <button onClick={handleViewDetails}>
-        View Details
-      </button>
+      <button onClick={handleViewDetails}>View Details</button>
 
-      <button onClick={handleAddToCart}>
-        Add to Cart
-      </button>
+      <button onClick={handleAddToCart}>Add to Cart</button>
     </div>
   );
 };

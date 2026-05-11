@@ -1,7 +1,13 @@
 import { useEffect, useState } from "react";
 import BasketItem from "../components/BasketItem";
-import { fetchProducts, calculateDiscountedPrice } from "../services/productsService";
-import { type BasketProduct, removeItem, updateQuantity, calculateTotal } from "../services/basketService";
+import { fetchProducts } from "../services/productsService";
+import { getCurrentPrice } from "../utils/priceUtils";
+import type { BasketProduct } from "../types";
+import {
+  removeItem,
+  updateQuantity,
+  calculateTotal,
+} from "../services/basketService";
 
 export default function BasketPage() {
   const [items, setItems] = useState<BasketProduct[]>([]);
@@ -14,17 +20,17 @@ export default function BasketPage() {
 
       const basketItems: BasketProduct[] = [];
       for (const id of cartIds) {
-      const product = products.find((p) => p.id === id);
-      if (!product) continue;
+        const product = products.find((p) => p.id === id);
+        if (!product) continue;
 
-      basketItems.push({
-        productId: product.id,
-        name: product.name,
-        price: calculateDiscountedPrice(product),
-        image: product.image,
-        quantity: 1,
-      });
-    }
+        basketItems.push({
+          productId: product.id,
+          name: product.name,
+          price: getCurrentPrice(product),
+          image: product.image,
+          quantity: 1,
+        });
+      }
       setItems(basketItems);
     };
 
@@ -59,9 +65,7 @@ export default function BasketPage() {
               />
             ))}
 
-            <h2 id="cart-sum">
-              Total: {total.toFixed(2)} kr.
-            </h2>
+            <h2 id="cart-sum">Total: {total.toFixed(2)} kr.</h2>
           </>
         )}
       </div>
