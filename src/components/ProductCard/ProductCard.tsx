@@ -7,7 +7,7 @@ export const ProductCard = ({ product }: { product: Product }) => {
 
   const handleViewDetails = () => {
     localStorage.setItem("selectedProductId", product.id.toString());
-    window.location.href = "/Products/productDetails.html"; //this won't work as we don't have that HTML page
+    //window.location.href = "/Products/productDetails.html";
   };
 
   const handleAddToCart = async () => {
