@@ -5,7 +5,7 @@ const ProductCard = ({ product }: { product: Product }) => {
 
   const handleViewDetails = () => {
     localStorage.setItem("selectedProductId", product.id.toString());
-    window.location.href = "/Products/productDetails.html";
+    //window.location.href = "/Products/productDetails.html";
   };
 
   const handleAddToCart = async () => {
