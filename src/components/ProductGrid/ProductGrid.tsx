@@ -3,13 +3,26 @@ import { ProductCard } from "../../components";
 
 interface ProductGridProp {
   products: Product[];
+  filters: { countries: string[]; categories: string[] };
 }
 
-export default function ProductGrid({ products }: ProductGridProp) {
+export default function ProductGrid({ products, filters }: ProductGridProp) {
+  const noFiltersChecked =
+    filters.categories.length === 0 && filters.countries.length === 0;
+
+  const filtered = noFiltersChecked
+    ? products
+    : products.filter(
+        (p) =>
+          filters.categories.includes(p.category) ||
+          filters.countries.includes(p.country),
+      );
+
   return (
     <main>
       <div id="products-container">
-        {products.map((product) => (
+        {filtered.length === 0 && <h2>No products found</h2>}
+        {filtered.map((product) => (
           <ProductCard key={product.id} product={product} />
         ))}
       </div>
