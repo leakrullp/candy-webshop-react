@@ -14,13 +14,18 @@ export default function BasketPage() {
 
   useEffect(() => {
     const loadBasket = async () => {
+      const customerId = "customer-1"; // for testing
+
+      const basketRes = await fetch(
+        `http://localhost:3000/baskets/${customerId}`
+      );
+
+      const basketData = await basketRes.json();
       const products = await fetchProducts();
 
-      const cartIds = [1, 2]; //test basket
-
       const basketItems: BasketProduct[] = [];
-      for (const id of cartIds) {
-        const product = products.find((p) => p.id === id);
+      for (const item of basketData.basket.items) {
+        const product = products.find((p) => p.id === item.productId);
         if (!product) continue;
 
         basketItems.push({
@@ -28,7 +33,7 @@ export default function BasketPage() {
           name: product.name,
           price: getCurrentPrice(product),
           image: product.image,
-          quantity: 1,
+          quantity: item.quantity,
         });
       }
       setItems(basketItems);

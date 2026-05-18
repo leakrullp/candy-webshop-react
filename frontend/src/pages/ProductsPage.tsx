@@ -2,10 +2,21 @@ import { useEffect, useState } from "react";
 import { fetchProducts } from "../services/productsService";
 import type { Product } from "../types";
 import "../index.css";
-import { ProductGrid } from "../components";
+import { ProductGrid, FilterBox } from "../components";
+
+interface FilterProps {
+  countries: string[];
+  categories: string[];
+}
+
+const startingFilters: FilterProps = {
+  countries: [],
+  categories: [],
+};
 
 export default function ProductsPage() {
   const [products, setProducts] = useState<Product[]>([]);
+  const [filters, setFilters] = useState<FilterProps>(startingFilters);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -39,7 +50,10 @@ export default function ProductsPage() {
 
   return (
     <>
-      <ProductGrid products={products} />
+      <main className="container mt-5">
+        <FilterBox filters={filters} setFilters={setFilters} />
+        <ProductGrid filters={filters} products={products} />
+      </main>
     </>
   );
 }

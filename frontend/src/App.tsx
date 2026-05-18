@@ -52,6 +52,7 @@ function AppContent() {
           path="/register"
           element={<Register onRegister={handleRegister} />}
         />
+        <Route path="/products/:id" element={<ProductDetailPage />} />
       </Routes>
     </>
   );
