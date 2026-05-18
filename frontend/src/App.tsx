@@ -42,6 +42,7 @@ function AppContent() {
             <CountryPage products={products} loading={loading} error={error} />
           }
         />
+        <Route path="/products/:id" element={<ProductDetailPage />} />
       </Routes>
     </>
   );
