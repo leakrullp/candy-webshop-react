@@ -1,10 +1,15 @@
 import { ProductBanner } from "../../components";
 import Carousel from "../../components/Carousel";
 import useDisplayName from "../../utils/useDisplayName";
-import useProducts from "../../utils/useProducts";
+import type { Product } from "../../types";
 
-export default function FrontPage() {
-  const { products, loading, error } = useProducts();
+type Props = {
+  products: Product[];
+  loading: boolean;
+  error: string | null;
+};
+
+export default function FrontPage({ products, loading, error }: Props) {
   const name = useDisplayName();
 
   return (
