@@ -22,6 +22,7 @@
   "homepage": "https://github.com/leakrullp/candy-webshop-react#readme",
   "dependencies": {
     "express": "^5.2.1",
+    "react-router-dom": "^7.15.1",
     "uuid": "^13.0.0"
   },
   "devDependencies": {
