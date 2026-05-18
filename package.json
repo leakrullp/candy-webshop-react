@@ -27,6 +27,7 @@
   },
   "devDependencies": {
     "@types/node": "^25.8.0",
+    "@vitejs/plugin-react": "^6.0.2",
     "concurrently": "^9.2.1",
     "nodemon": "^3.1.14",
     "vite": "^8.0.13"
