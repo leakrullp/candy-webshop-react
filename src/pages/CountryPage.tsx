@@ -1,28 +1,11 @@
-import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import type { Product } from "../types";
-import { fetchProducts } from "../services/productsService";
 import { ProductBanner } from "../components";
+import useProducts from "../utils/useProducts";
 
 const CountryPage = () => {
-  const { country } = useParams();
-  const [products, setProducts] = useState<Product[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    fetchProducts()
-    fetchProducts()
-    .then((data) => {
-      console.log("Products fetched", data); 
-      setProducts(data);
-    })
-    .catch((err) => {
-      console.error("Fail:", err); 
-      setError("Failed to load products");
-    })
-      .finally(() => setLoading(false));
-  }, []);
+    const { country } = useParams();
+    const { products, loading, error } = useProducts();
+  
 
   const countryProducts = products.filter((p) => p.country === country);
 
