@@ -1,6 +1,6 @@
 import { ProductBanner } from "../../components";
 import Carousel from "../../components/Carousel";
-import useDisplayName from "../../utils/useDisplayName";
+import useDisplayName from "../../hooks/useDisplayName";
 import type { Product } from "../../types";
 
 type Props = {

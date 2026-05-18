@@ -3,8 +3,8 @@ import { Navbar } from "./components";
 import { BrowserRouter, Routes, Route} from "react-router-dom";
 import { FrontPage, BasketPage, ProductsPage, Login, Register } from "./pages";
 import CountryPage from "./pages/CountryPage";
-import useProducts from "./utils/useProducts";
-import useAuth from "./utils/useAuth";
+import useProducts from "./hooks/useProducts";
+import useAuth from "./hooks/useAuth";
 import ProductDetailPage from "./pages/ProductDetailPage";
 
 function AppContent() {
