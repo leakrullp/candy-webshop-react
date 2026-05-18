@@ -3,7 +3,7 @@ import { Navbar } from "./components";
 import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import { loginUser, registerUser } from "./services/authService";
 import { FrontPage, BasketPage, ProductsPage, Login, Register } from "./pages";
-import ProductDetailPage from "./pages/ProductDetailPage";
+import CountryPage from "./pages/CountryPage";
 
 function AppContent() {
   const navigate = useNavigate();
@@ -52,6 +52,7 @@ function AppContent() {
           path="/register"
           element={<Register onRegister={handleRegister} />}
         />
+        <Route path="/country/:country" element={<CountryPage/>} />
       </Routes>
     </>
   );
