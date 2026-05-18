@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { getCurrentPrice } from "../../utils/priceUtils";
 import type { Product } from "../../types";
-import { addToBasket } from "../../services/basketService";
 import "./ProductCard.css";
+import { handleAddToCart } from "../../utils/cartUtils";
 
 export const ProductCard = ({ product }: { product: Product }) => {
   const price = getCurrentPrice(product);
@@ -13,18 +13,6 @@ export const ProductCard = ({ product }: { product: Product }) => {
     navigate(`/products/${product.id}`);
   };
 
-  const handleAddToCart = async () => {
-    try {
-      const customerId = "customer-1";
-
-      await addToBasket(customerId, product.id, 1);
-
-      alert("Added to cart!");
-    } catch (error) {
-      console.error(error);
-      alert("Failed to add to cart");
-    }
-  };
 
   return (
     <div className="product-card">
@@ -50,7 +38,7 @@ export const ProductCard = ({ product }: { product: Product }) => {
 
       <button onClick={handleViewDetails}>View Details</button>
 
-      <button onClick={handleAddToCart}>Add to Cart</button>
+      <button onClick={() => handleAddToCart(product.id)}>Add to Cart</button>
     </div>
   );
 };

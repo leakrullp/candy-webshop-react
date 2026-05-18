@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { fetchProducts } from "../services/productsService";
 import { getCurrentPrice } from "../utils/priceUtils";
 import type { Product } from "../types";
+import { handleAddToCart } from "../utils/cartUtils";
 
 export default function ProductDetailPage() {
   const [product, setProduct] = useState<Product | null>(null);
@@ -47,7 +48,7 @@ export default function ProductDetailPage() {
 
         <p>{product.description}</p>
 
-        <button id="add-to-cart-btn">Add to Cart</button>
+        <button onClick={() => handleAddToCart(product.id)} id="add-to-cart-btn">Add to Cart</button>
       </div>
     </main>
   );
