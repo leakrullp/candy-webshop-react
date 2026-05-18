@@ -21,3 +21,26 @@ export const updateQuantity = (
 export const calculateTotal = (items: BasketProduct[]) => {
   return items.reduce((sum, item) => sum + calculateItemTotal(item), 0);
 };
+
+export const addToBasket = async (
+  customerId: string,
+  productId: number,
+  quantity: number = 1,
+) => {
+  const url = `http://localhost:3000/baskets/${customerId}/${productId}/${quantity}`;
+
+  const response = await fetch(url, {
+    method: "POST",
+  });
+
+  console.log("STATUS:", response.status);
+
+  const text = await response.text();
+  console.log("BODY:", text);
+
+  if (!response.ok) {
+    throw new Error("Failed to add item to basket");
+  }
+
+  return JSON.parse(text);
+};

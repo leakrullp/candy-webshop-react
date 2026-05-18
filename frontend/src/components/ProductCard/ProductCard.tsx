@@ -1,18 +1,29 @@
+import { useNavigate } from "react-router-dom";
 import { getCurrentPrice } from "../../utils/priceUtils";
 import type { Product } from "../../types";
+import { addToBasket } from "../../services/basketService";
 import "./ProductCard.css";
 
 export const ProductCard = ({ product }: { product: Product }) => {
   const price = getCurrentPrice(product);
+  const navigate = useNavigate();
 
   const handleViewDetails = () => {
     localStorage.setItem("selectedProductId", product.id.toString());
-    //window.location.href = "/Products/productDetails.html";
+    navigate(`/products/${product.id}`);
   };
 
   const handleAddToCart = async () => {
-    //const { addToCart } = await import("../utils/cartUtils");
-    //addToCart(product.id);
+    try {
+      const customerId = "customer-1";
+
+      await addToBasket(customerId, product.id, 1);
+
+      alert("Added to cart!");
+    } catch (error) {
+      console.error(error);
+      alert("Failed to add to cart");
+    }
   };
 
   return (
