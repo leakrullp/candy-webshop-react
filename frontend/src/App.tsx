@@ -1,12 +1,15 @@
 import "./index.css";
 import { Navbar } from "./components";
-import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
-import { loginUser, registerUser } from "./services/authService";
+import { BrowserRouter, Routes, Route} from "react-router-dom";
 import { FrontPage, BasketPage, ProductsPage, Login, Register } from "./pages";
+import CountryPage from "./pages/CountryPage";
+import useProducts from "./utils/useProducts";
+import useAuth from "./utils/useAuth";
 import ProductDetailPage from "./pages/ProductDetailPage";
 
 function AppContent() {
-  const navigate = useNavigate();
+  const { products, loading, error } = useProducts();
+  const { handleLogin, handleRegister } = useAuth();
 
   // POTENTIAL STATES TO KEEP GLOBALLY
 
@@ -17,40 +20,28 @@ function AppContent() {
   // then we just pass the products down as a prop to FrontPage, BasketPage, ProductsPage etc.
   // const [products, setProducts] = useState<Product[]>([]);
 
-  const handleLogin = async (email: string, password: string) => {
-    const customer = await loginUser(email, password);
-    if (customer) {
-      navigate("/");
-    } else {
-      navigate("/register");
-    }
-  };
-
-  const handleRegister = async (
-    fname: string,
-    lname: string,
-    email: string,
-    password: string,
-  ) => {
-    const customer = await registerUser(fname, lname, email, password);
-    if (customer) {
-      navigate("/login");
-    } else {
-      navigate("/register");
-    }
-  };
-
   return (
     <>
       <Navbar />
       <Routes>
-        <Route path="/" element={<FrontPage />} />
+        <Route
+          path="/"
+          element={
+            <FrontPage products={products} loading={loading} error={error} />
+          }
+        />
         <Route path="/ProductsPage" element={<ProductsPage />} />
         <Route path="/login" element={<Login onLogin={handleLogin} />} />
         <Route path="/cart" element={<BasketPage />} />
         <Route
           path="/register"
           element={<Register onRegister={handleRegister} />}
+        />
+        <Route
+          path="/country/:country"
+          element={
+            <CountryPage products={products} loading={loading} error={error} />
+          }
         />
         <Route path="/products/:id" element={<ProductDetailPage />} />
       </Routes>

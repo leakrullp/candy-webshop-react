@@ -1,26 +1,31 @@
-import { useState, useEffect } from "react";
-import type { Product } from "../../types";
 import { ProductBanner } from "../../components";
-import { fetchProducts } from "../../services/productsService";
+import Carousel from "../../components/Carousel";
+import useDisplayName from "../../utils/useDisplayName";
+import type { Product } from "../../types";
 
-export default function FrontPage() {
-  //fetch all products once for this page instead of once per ProductBanner
-  const [products, setProducts] = useState<Product[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+type Props = {
+  products: Product[];
+  loading: boolean;
+  error: string | null;
+};
 
-  useEffect(() => {
-    fetchProducts()
-      .then(setProducts)
-      .catch(() => setError("Failed to load products"))
-      .finally(() => setLoading(false));
-  }, []);
+export default function FrontPage({ products, loading, error }: Props) {
+  const name = useDisplayName();
 
   return (
     <>
+      <main className="container mt-5"></main>
       {error && <p>{error}</p>}
       {!loading && (
         <>
+          <header className="text-center mb-5"></header>
+          <h1 className="display-4 fw-bold" id="welcome-header">
+            {name
+              ? `Welcome to a world of candy, ${name}!!`
+              : "Welcome to a world of candy"}
+          </h1>
+
+          <Carousel />
           <ProductBanner
             products={products}
             title="On sale"
