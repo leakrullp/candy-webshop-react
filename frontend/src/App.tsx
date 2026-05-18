@@ -5,6 +5,7 @@ import { FrontPage, BasketPage, ProductsPage, Login, Register } from "./pages";
 import CountryPage from "./pages/CountryPage";
 import useProducts from "./utils/useProducts";
 import useAuth from "./utils/useAuth";
+import ProductDetailPage from "./pages/ProductDetailPage";
 
 function AppContent() {
   const { products, loading, error } = useProducts();
