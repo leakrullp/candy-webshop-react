@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { Container, Row, Form, Button } from "react-bootstrap";
 
 interface LoginProps {
@@ -54,6 +55,9 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
               Submit
             </Button>
           </Form.Group>
+          <p>
+            Not signed up? <Link to="/register">Register here.</Link>
+          </p>
         </Form>
       </Row>
     </Container>
