@@ -7,6 +7,7 @@ import {
   removeItem,
   updateQuantity,
   calculateTotal,
+  removeFromBasket,
 } from "../services/basketService";
 
 export default function BasketPage() {
@@ -42,8 +43,15 @@ export default function BasketPage() {
     loadBasket();
   }, []);
 
-  const handleRemove = (id: number) => {
-    setItems((currentItems) => removeItem(currentItems, id));
+  const handleRemove = async (id: number) => {
+    const customerId = "1";
+
+    try {
+      await removeFromBasket(customerId, id);
+      setItems((currentItems) => removeItem(currentItems, id));
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   const handleUpdateQuantity = (id: number, quantity: number) => {
