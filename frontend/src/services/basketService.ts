@@ -27,7 +27,7 @@ export const addToBasket = async (
   productId: number,
   quantity: number = 1,
 ) => {
-  const url = `http://localhost:3000/baskets/${customerId}/${productId}/${quantity}`;
+  const url = `http://localhost:3000/api/baskets/${customerId}/${productId}/${quantity}`;
 
   const response = await fetch(url, {
     method: "POST",

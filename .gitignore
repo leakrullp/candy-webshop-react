@@ -25,3 +25,7 @@ dist-ssr
 *.sw?
 
 *.tsbuildinfo
+
+# Postman
+.postman
+postman
