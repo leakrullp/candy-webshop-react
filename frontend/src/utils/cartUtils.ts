@@ -1,7 +1,6 @@
 import type { BasketProduct } from "../types";
 import { addToBasket } from "../services/basketService";
 
-
 export function numberOfProductsInCart() {
   let productsInCart =
     JSON.parse(localStorage.getItem("productsInCart") ?? "[]") || []; //TODO: look up how to do this safely in TS
@@ -15,10 +14,10 @@ export function numberOfProductsInCart() {
 
 export const handleAddToCart = async (
   productId: number,
-  quantity: number = 1
+  quantity: number = 1,
 ) => {
   try {
-    const customerId = "customer-1";
+    const customerId = "1";
 
     await addToBasket(customerId, productId, quantity);
 

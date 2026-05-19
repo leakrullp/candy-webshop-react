@@ -14,10 +14,10 @@ export default function BasketPage() {
 
   useEffect(() => {
     const loadBasket = async () => {
-      const customerId = "customer-1"; // for testing
+      const customerId = "1"; // for testing
 
       const basketRes = await fetch(
-        `http://localhost:3000/baskets/${customerId}`
+        `http://localhost:3000/baskets/${customerId}`,
       );
 
       const basketData = await basketRes.json();
