@@ -7,6 +7,7 @@ import {
   removeItem,
   updateQuantity,
   calculateTotal,
+  addToBasket,
   removeFromBasket,
 } from "../services/basketService";
 
@@ -54,8 +55,16 @@ export default function BasketPage() {
     }
   };
 
-  const handleUpdateQuantity = (id: number, quantity: number) => {
-    setItems((currentItems) => updateQuantity(currentItems, id, quantity));
+  const handleUpdateQuantity = async (id: number, quantity: number) => {
+    const customerId = "1";
+
+    try {
+      await removeFromBasket(customerId, id);
+      await addToBasket(customerId, id, quantity);
+      setItems((currentItems) => updateQuantity(currentItems, id, quantity));
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   const total = calculateTotal(items);
