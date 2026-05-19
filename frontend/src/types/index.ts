@@ -22,3 +22,9 @@ export type BasketProduct = {
   image: string;
   quantity: number;
 };
+
+export type LoadProductsProps = {
+  products: Product[];
+  loading: boolean;
+  error: string | null;
+};

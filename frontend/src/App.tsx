@@ -1,24 +1,19 @@
-import "./index.css";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useProducts, useAuth } from "./hooks";
 import { Navbar } from "./components";
-import { BrowserRouter, Routes, Route} from "react-router-dom";
-import { FrontPage, BasketPage, ProductsPage, Login, Register } from "./pages";
-import CountryPage from "./pages/CountryPage";
-import useProducts from "./hooks/useProducts";
-import useAuth from "./hooks/useAuth";
-import ProductDetailPage from "./pages/ProductDetailPage";
+import {
+  FrontPage,
+  BasketPage,
+  ProductsPage,
+  ProductDetailPage,
+  Login,
+  Register,
+  CountryPage,
+} from "./pages";
 
 function AppContent() {
   const { products, loading, error } = useProducts();
   const { handleLogin, handleRegister } = useAuth();
-
-  // POTENTIAL STATES TO KEEP GLOBALLY
-
-  // basket items so we can read the number and use in navbar
-  // const [items, setItems] = useState<BasketProduct[]>([]);
-
-  // fetch products once and keep around, instead of loading from server constantly
-  // then we just pass the products down as a prop to FrontPage, BasketPage, ProductsPage etc.
-  // const [products, setProducts] = useState<Product[]>([]);
 
   return (
     <>
@@ -30,7 +25,12 @@ function AppContent() {
             <FrontPage products={products} loading={loading} error={error} />
           }
         />
-        <Route path="/ProductsPage" element={<ProductsPage />} />
+        <Route
+          path="/ProductsPage"
+          element={
+            <ProductsPage products={products} loading={loading} error={error} />
+          }
+        />
         <Route path="/login" element={<Login onLogin={handleLogin} />} />
         <Route path="/cart" element={<BasketPage />} />
         <Route
