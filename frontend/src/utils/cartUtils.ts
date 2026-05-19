@@ -1,23 +1,5 @@
-import type { Product, BasketProduct } from "../types";
-
-export function addToCart(productId: number) {
-  let productsInCart =
-    JSON.parse(localStorage.getItem("productsInCart") ?? "[]") || []; //TODO: look up how to do this safely in TS
-
-  const existingProduct = productsInCart.find(
-    (item: Product) => item.id === productId,
-  );
-
-  if (existingProduct) {
-    existingProduct.quantity += 1;
-  } else {
-    productsInCart.push({ id: productId, quantity: 1 });
-  }
-
-  localStorage.setItem("productsInCart", JSON.stringify(productsInCart));
-  localStorage.setItem("cart", JSON.stringify(productsInCart));
-  window.location.href = "../basket.html";
-}
+import type { BasketProduct } from "../types";
+import { addToBasket } from "../services/basketService";
 
 export function numberOfProductsInCart() {
   let productsInCart =
@@ -29,3 +11,19 @@ export function numberOfProductsInCart() {
   });
   return number;
 }
+
+export const handleAddToCart = async (
+  productId: number,
+  quantity: number = 1,
+) => {
+  try {
+    const customerId = "1";
+
+    await addToBasket(customerId, productId, quantity);
+
+    alert("Added to cart!");
+  } catch (error) {
+    console.error(error);
+    alert("Failed to add to cart");
+  }
+};
