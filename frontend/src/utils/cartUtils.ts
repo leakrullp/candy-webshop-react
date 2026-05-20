@@ -1,15 +1,10 @@
-import type { BasketProduct } from "../types";
+import type { User } from "../types";
 import { addToBasket } from "../services/basketService";
 
-export function numberOfProductsInCart() {
-  let productsInCart =
-    JSON.parse(localStorage.getItem("productsInCart") ?? "[]") || []; //TODO: look up how to do this safely in TS
-
-  let number = 0;
-  productsInCart.forEach(function (p: BasketProduct) {
-    number += p.quantity;
-  });
-  return number;
+export function numberOfProductsInCart(user: User | null) {
+  if (!user) return 0; //needs fixing!!
+  const sum = user.items.reduce((total, item) => total + item.quantity, 0);
+  return sum;
 }
 
 export const handleAddToCart = async (
