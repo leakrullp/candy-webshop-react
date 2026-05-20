@@ -49,7 +49,7 @@ export const removeFromBasket = async (
   customerId: string,
   productId: number,
 ) => {
-  const url = `http://localhost:3000/baskets/${customerId}/${productId}`;
+  const url = `http://localhost:3000/api/baskets/${customerId}/${productId}`;
 
   const response = await fetch(url, {
     method: "DELETE",
