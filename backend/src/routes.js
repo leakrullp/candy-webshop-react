@@ -53,7 +53,7 @@ BASKET INTERACTIONS
 */
 
 // Create or get existing basket for a customer
-router.post("/basket/:customerId", (req, res) => {
+router.post("/baskets/:customerId", (req, res) => {
   const existing = data.baskets.find(
     (b) => b.customerId === req.params.customerId,
   );
@@ -76,7 +76,7 @@ router.post("/basket/:customerId", (req, res) => {
 });
 
 // GET basket for a specific customer
-router.get("/basket/:customerId", (req, res) => {
+router.get("/baskets/:customerId", (req, res) => {
   const basket = data.baskets.find(
     (b) => b.customerId === req.params.customerId,
   );
@@ -89,7 +89,7 @@ router.get("/basket/:customerId", (req, res) => {
 });
 
 // Add item to basket
-router.post("/basket/:customerId/:productId/:quantity", (req, res) => {
+router.post("/baskets/:customerId/:productId/:quantity", (req, res) => {
   const productId = parseInt(req.params.productId);
   const quantity = parseInt(req.params.quantity);
 
@@ -114,7 +114,7 @@ router.post("/basket/:customerId/:productId/:quantity", (req, res) => {
 });
 
 // Remove item from basket
-router.delete("/basket/:customerId/:productId", (req, res) => {
+router.delete("/baskets/:customerId/:productId", (req, res) => {
   const basket = data.baskets.find(
     (b) => b.customerId === req.params.customerId,
   );

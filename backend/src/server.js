@@ -10,7 +10,6 @@ app.use(cors());
 app.use(express.json()); // Parse JSON request bodies
 
 app.use("/api", router);
-// app.use("/products", productsRouter);
 
 app.listen(PORT, () => {
   console.log(`
@@ -25,9 +24,9 @@ app.listen(PORT, () => {
   GET  products by category:       http://localhost:${PORT}/api/categories/:category                      ex: http://localhost:${PORT}/api/categories/gummies
 
   BASKETS
-  POST create basket for user:     http://localhost:${PORT}/api/basket/:customerId                       ex: http://localhost:${PORT}/api/basket/1
-  GET  basket for user:            http://localhost:${PORT}/api/basket/:customerId
-  POST add item to basket:         http://localhost:${PORT}/api/basket/:customerId/:productId/:quantity  ex: http://localhost:${PORT}/api/basket/1/1/1
-  DEL  remove item from basket:    http://localhost:${PORT}/api/basket/:customerId/:productId            ex: http://localhost:${PORT}/api/basket/1/1
+  POST create basket for user:     http://localhost:${PORT}/api/baskets/:customerId                       ex: http://localhost:${PORT}/api/baskets/1
+  GET  basket for user:            http://localhost:${PORT}/api/baskets/:customerId
+  POST add item to basket:         http://localhost:${PORT}/api/baskets/:customerId/:productId/:quantity  ex: http://localhost:${PORT}/api/baskets/1/1/1
+  DEL  remove item from basket:    http://localhost:${PORT}/api/baskets/:customerId/:productId            ex: http://localhost:${PORT}/api/baskets/1/1
   `);
 });
