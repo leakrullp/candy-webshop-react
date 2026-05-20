@@ -27,6 +27,7 @@ export type LoadProductsProps = {
   products: Array<Product>;
   loading: boolean;
   error: string | null;
+  currentUser: User | null;
 };
 
 export type User = {
