@@ -1,4 +1,6 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import { Container, Row, Form, Button } from "react-bootstrap";
 
 interface LoginProps {
   onLogin: (email: string, password: string) => void;
@@ -25,29 +27,40 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
   };
 
   return (
-    <div className="login-container">
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Email
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </label>
-        <label>
-          Password
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </label>
-        <button type="submit">Login</button>
-        {error && <p className="error-message">{error}</p>}
-      </form>
-    </div>
+    <Container>
+      <Row lg={2}>
+        <Form onSubmit={handleSubmit}>
+          {error && <p className="error-message">{error}</p>}
+          <h2>Login</h2>
+          <Form.Group className="mb-3" controlId="formEmail">
+            <Form.Label>Email address</Form.Label>
+            <Form.Control
+              type="email"
+              placeholder="name@example.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="formPassword">
+            <Form.Label>Password</Form.Label>
+            <Form.Control
+              type="password"
+              placeholder="Enter your password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </Form.Group>
+          <Form.Group>
+            <Button type="submit" variant="primary">
+              Submit
+            </Button>
+          </Form.Group>
+          <p>
+            Not signed up? <Link to="/register">Register here.</Link>
+          </p>
+        </Form>
+      </Row>
+    </Container>
   );
 };
 
