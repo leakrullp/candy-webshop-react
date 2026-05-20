@@ -44,3 +44,20 @@ export const addToBasket = async (
 
   return JSON.parse(text);
 };
+
+export const removeFromBasket = async (
+  customerId: string,
+  productId: number,
+) => {
+  const url = `http://localhost:3000/baskets/${customerId}/${productId}`;
+
+  const response = await fetch(url, {
+    method: "DELETE",
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to remove item from basket");
+  }
+
+  return response.json();
+};
