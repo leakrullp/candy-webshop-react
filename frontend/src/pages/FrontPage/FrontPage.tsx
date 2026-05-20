@@ -1,15 +1,12 @@
-import { ProductBanner } from "../../components";
-import Carousel from "../../components/Carousel";
-import useDisplayName from "../../hooks/useDisplayName";
-import type { Product } from "../../types";
+import type { LoadProductsProps } from "../../types";
+import { useDisplayName } from "../../hooks";
+import { ProductBanner, Carousel } from "../../components";
 
-type Props = {
-  products: Product[];
-  loading: boolean;
-  error: string | null;
-};
-
-export default function FrontPage({ products, loading, error }: Props) {
+export default function FrontPage({
+  products,
+  loading,
+  error,
+}: LoadProductsProps) {
   const name = useDisplayName();
 
   return (
