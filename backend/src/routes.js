@@ -75,6 +75,27 @@ router.post("/baskets/:customerId", (req, res) => {
   res.status(201).json({ message: "Basket created", basket: newBasket });
 });
 
+// Create or get existing basket for a customer based on email
+router.post("/baskets/:email", (req, res) => {
+  const existing = data.baskets.find((b) => b.email === req.params.email);
+
+  if (existing) {
+    return res
+      .status(200)
+      .json({ message: "Basket already exists", basket: existing });
+  }
+
+  const newBasket = {
+    email: req.params.email,
+    items: [],
+  };
+
+  data.baskets.push(newBasket);
+  saveData(data);
+
+  res.status(201).json({ message: "Basket created", basket: newBasket });
+});
+
 // GET basket for a specific customer
 router.get("/baskets/:customerId", (req, res) => {
   const basket = data.baskets.find(
