@@ -9,6 +9,8 @@ interface NavbarProps {
   setCurrentUser?: (user: User) => void;
 }
 
+//TODO: needs a refactor to reflect real user data
+
 export default function Navbar({ currentUser }: NavbarProps) {
 
   const [totalInCart, setTotalInCart] = useState(0);
