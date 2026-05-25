@@ -24,7 +24,17 @@ export type BasketProduct = {
 };
 
 export type LoadProductsProps = {
-  products: Product[];
+  products: Array<Product>;
   loading: boolean;
   error: string | null;
+  currentUser: User | null;
+};
+
+export type User = {
+  customerId: string;
+  firstname: string;
+  lastname: string;
+  email: string;
+  password: string;
+  items: Array<{ productId: number; quantity: number }>;
 };

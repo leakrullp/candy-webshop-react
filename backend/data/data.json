@@ -229,6 +229,10 @@
   "baskets": [
     {
       "customerId": "1",
+      "firstname": "Lea",
+      "lastname": "Krull",
+      "email": "leape@itu.dk",
+      "password": "leape123",
       "items": [
         {
           "productId": 1,
@@ -237,8 +241,7 @@
         {
           "productId": 2,
           "quantity": 1
-        },
-        {}
+        }
       ]
     }
   ]

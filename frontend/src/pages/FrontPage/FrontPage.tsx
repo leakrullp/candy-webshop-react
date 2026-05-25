@@ -1,18 +1,19 @@
 import type { LoadProductsProps } from "../../types";
-import { useDisplayName } from "../../hooks";
 import { ProductBanner, Carousel } from "../../components";
 
 export default function FrontPage({
   products,
   loading,
   error,
+  currentUser,
 }: LoadProductsProps) {
-  const name = useDisplayName();
+  const name = currentUser?.firstname ? currentUser?.firstname : null;
 
   return (
     <>
       <main className="container mt-5"></main>
       {error && <p>{error}</p>}
+
       {!loading && (
         <>
           <header className="text-center mb-5"></header>
