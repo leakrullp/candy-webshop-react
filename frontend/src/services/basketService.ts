@@ -22,6 +22,17 @@ export const calculateTotal = (items: BasketProduct[]) => {
   return items.reduce((sum, item) => sum + calculateItemTotal(item), 0);
 };
 
+export const getBasket = async (customerId: string) => {
+  const url = `http://localhost:3000/api/baskets/${customerId}`;
+  const response = await fetch(url);
+
+  if (!response.ok) {
+    throw new Error("Failed to fetch basket");
+  }
+
+  return response.json();
+};
+
 export const addToBasket = async (
   customerId: string,
   productId: number,
@@ -41,6 +52,8 @@ export const addToBasket = async (
   if (!response.ok) {
     throw new Error("Failed to add item to basket");
   }
+  // tell navbar to refresh the number of items in the basket
+  window.dispatchEvent(new Event("cartUpdated"));
 
   return JSON.parse(text);
 };
@@ -58,6 +71,9 @@ export const removeFromBasket = async (
   if (!response.ok) {
     throw new Error("Failed to remove item from basket");
   }
+  // tell navbar to refresh the number of items in the basket
+  window.dispatchEvent(new Event("cartUpdated"));
+
 
   return response.json();
 };

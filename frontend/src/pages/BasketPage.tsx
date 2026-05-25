@@ -9,6 +9,7 @@ import {
   calculateTotal,
   addToBasket,
   removeFromBasket,
+  getBasket,
 } from "../services/basketService";
 
 export default function BasketPage() {
@@ -18,11 +19,7 @@ export default function BasketPage() {
     const loadBasket = async () => {
       const customerId = "1"; // for testing
 
-      const basketRes = await fetch(
-        `http://localhost:3000/api/baskets/${customerId}`,
-      );
-
-      const basketData = await basketRes.json();
+      const basketData = await getBasket(customerId);
       const products = await fetchProducts();
 
       const basketItems: BasketProduct[] = [];
