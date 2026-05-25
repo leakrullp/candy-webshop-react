@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { calculateItemTotal } from "../services/basketService";
 import type { BasketProduct } from "../types";
 
@@ -8,6 +9,12 @@ type BasketItemProps = {
 };
 
 const BasketItem = ({ item, onRemove, onUpdateQuantity }: BasketItemProps) => {
+  const [quantityText, setQuantityText] = useState(String(item.quantity));
+
+  useEffect(() => {
+    setQuantityText(String(item.quantity));
+  }, [item.quantity]);
+
   const increase = () => {
     onUpdateQuantity(item.productId, item.quantity + 1);
   };
@@ -16,6 +23,17 @@ const BasketItem = ({ item, onRemove, onUpdateQuantity }: BasketItemProps) => {
     if (item.quantity > 1) {
       onUpdateQuantity(item.productId, item.quantity - 1);
     }
+  };
+
+  const saveQuantity = () => {
+    const nextQuantity = Number.parseInt(quantityText, 10);
+
+    if (Number.isNaN(nextQuantity) || nextQuantity < 1) {
+      setQuantityText(String(item.quantity));
+      return;
+    }
+
+    onUpdateQuantity(item.productId, nextQuantity);
   };
 
   return (
@@ -29,7 +47,14 @@ const BasketItem = ({ item, onRemove, onUpdateQuantity }: BasketItemProps) => {
       </div>
       <div className="quantity-controls">
         <button onClick={decrease}>−</button>
-        <span>{item.quantity}</span>
+        <input
+          className="quantity-input"
+          type="number"
+          min="1"
+          value={quantityText}
+          onChange={(event) => setQuantityText(event.target.value)}
+          onBlur={saveQuantity}
+        />
         <button onClick={increase}>+</button>
       </div>
 
