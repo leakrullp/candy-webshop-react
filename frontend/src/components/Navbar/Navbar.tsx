@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
-import { numberOfProductsInCart } from "../../utils/cartUtils";
 import "./Navbar.css";
 import type { User } from "../../types";
+import { useEffect, useState } from "react";
+import { getBasket } from "../../services/basketService";
 
 interface NavbarProps {
   currentUser: User | null;
@@ -10,12 +11,36 @@ interface NavbarProps {
 
 //TODO: needs a refactor to reflect real user data
 
+
 export default function Navbar({ currentUser }: NavbarProps) {
   // const user: string | null = localStorage.getItem("fname");
   // const userId: string = user ? user.slice(0, 2).toUpperCase() : "Login";
   // const logClass: string = user ? "profText" : "";
 
-  const totalInCart = numberOfProductsInCart(currentUser);
+  const [totalInCart, setTotalInCart] = useState(0);
+  const customerId = currentUser?.customerId ?? "1";
+
+  useEffect(() => {
+    const updateCart = async () => {
+      try {
+        const basketData = await getBasket(customerId);
+        const items = basketData?.basket?.items ?? [];
+        const total = items.reduce((sum: number, item: any) => sum + (item.quantity || 0), 0);
+        setTotalInCart(total);
+      } catch (e) {
+        console.error("Failed to load basket for navbar:", e);
+      }
+    };
+
+    // load initial value
+    void updateCart();
+
+    window.addEventListener("cartUpdated", updateCart);
+
+    return () => {
+      window.removeEventListener("cartUpdated", updateCart);
+    };
+  }, [customerId]);
 
   return (
     <nav className="navbar">

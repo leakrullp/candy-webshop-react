@@ -18,7 +18,7 @@ export const ProductCard = ({ product }: { product: Product }) => {
     <div className="product-card">
       <h2>{product.name}</h2>
 
-      <img src={product.image} width={200} alt={product.name} />
+      <img src={product.image} width={200} alt={product.name} onClick={handleViewDetails} />
 
       {product.discount > 0 ? (
         <>
