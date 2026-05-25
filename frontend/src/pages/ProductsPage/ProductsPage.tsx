@@ -1,6 +1,6 @@
-import type { LoadProductsProps } from "../types";
+import type { LoadProductsProps } from "../../types";
 import { useState } from "react";
-import { ProductGrid, FilterBox } from "../components";
+import { ProductGrid, FilterBox } from "../../components";
 
 interface FilterProps {
   countries: string[];

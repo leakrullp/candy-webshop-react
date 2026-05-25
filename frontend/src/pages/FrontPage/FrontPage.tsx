@@ -1,5 +1,6 @@
 import type { LoadProductsProps } from "../../types";
 import { ProductBanner, Carousel } from "../../components";
+import "./FrontPage.css";
 
 export default function FrontPage({
   products,

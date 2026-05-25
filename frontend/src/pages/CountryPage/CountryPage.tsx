@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
-import { ProductBanner } from "../components";
-import type { Product } from "../types";
+import { ProductBanner } from "../../components";
+import type { Product } from "../../types";
+import "./CountryPage.css";
 
 type Props = {
   products: Product[];

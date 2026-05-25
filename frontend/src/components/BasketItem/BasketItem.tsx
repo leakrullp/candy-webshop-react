@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import { calculateItemTotal } from "../services/basketService";
-import type { BasketProduct } from "../types";
+import { calculateItemTotal } from "../../services/basketService";
+import type { BasketProduct } from "../../types";
+import "./BasketItem.css";
 
 type BasketItemProps = {
   item: BasketProduct;

@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import BasketItem from "../components/BasketItem";
-import { fetchProducts } from "../services/productsService";
-import { getCurrentPrice } from "../utils/priceUtils";
-import type { BasketProduct } from "../types";
+import BasketItem from "../../components/BasketItem/BasketItem";
+import { fetchProducts } from "../../services/productsService";
+import { getCurrentPrice } from "../../utils/priceUtils";
+import type { BasketProduct } from "../../types";
+import "./BasketPage.css";
 import {
   removeItem,
   updateQuantity,
@@ -10,7 +11,7 @@ import {
   addToBasket,
   removeFromBasket,
   getBasket,
-} from "../services/basketService";
+} from "../../services/basketService";
 
 export default function BasketPage() {
   const [items, setItems] = useState<BasketProduct[]>([]);
