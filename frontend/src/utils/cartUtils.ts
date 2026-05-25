@@ -16,7 +16,6 @@ export const handleAddToCart = async (
 
     await addToBasket(customerId, productId, quantity);
 
-    alert("Added to cart!");
   } catch (error) {
     console.error(error);
     alert("Failed to add to cart");
