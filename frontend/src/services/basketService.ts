@@ -52,7 +52,6 @@ export const addToBasket = async (
   if (!response.ok) {
     throw new Error("Failed to add item to basket");
   }
-  // tell navbar to refresh the number of items in the basket
   window.dispatchEvent(new Event("cartUpdated"));
 
   return JSON.parse(text);
@@ -71,7 +70,6 @@ export const removeFromBasket = async (
   if (!response.ok) {
     throw new Error("Failed to remove item from basket");
   }
-  // tell navbar to refresh the number of items in the basket
   window.dispatchEvent(new Event("cartUpdated"));
 
 

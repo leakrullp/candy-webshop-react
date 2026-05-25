@@ -20,7 +20,7 @@
 }
 
 .basket-info {
-  flex: 1; /* THIS is the key */
+  flex: 1; 
 }
 
 .remove-btn {
@@ -40,6 +40,7 @@
   background: var(--beige);
   color: white;
 }
+
 /* Quantity controls Basket */
 .quantity-controls {
   display: flex;
