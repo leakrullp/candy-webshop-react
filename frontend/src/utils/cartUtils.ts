@@ -1,5 +1,6 @@
 import type { User } from "../types";
 import { addToBasket } from "../services/basketService";
+import { removeFromBasket } from "../services/basketService";
 
 export function numberOfProductsInCart(user: User | null) {
   if (!user) return 0; //needs fixing!!
@@ -19,5 +20,26 @@ export const handleAddToCart = async (
   } catch (error) {
     console.error(error);
     alert("Failed to add to cart");
+  }
+};
+
+export const handleRemove = async (id: number) => {
+  const customerId = "1";
+
+  try {
+    await removeFromBasket(customerId, id);
+  } catch (e) {
+    console.error(e);
+  }
+};
+
+export const handleUpdateQuantity = async (id: number, quantity: number) => {
+  const customerId = "1";
+
+  try {
+    await removeFromBasket(customerId, id);
+    await addToBasket(customerId, id, quantity);
+  } catch (e) {
+    console.error(e);
   }
 };
