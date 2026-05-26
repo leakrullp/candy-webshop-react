@@ -1,59 +1,8 @@
-import express from "express";
-const router = express.Router();
-import { getData, getCurrentPrice, saveData } from "./serverUtil.js";
+import { getData, saveData } from "../serverUtil.js";
 
 const data = getData(); //get data once
 
-// GET all products
-router.get("/products", (req, res) => {
-  const productsWithPrice = data.products.map((p) => ({
-    ...p,
-    price: getCurrentPrice(p),
-  }));
-
-  res.status(200).json({ products: productsWithPrice });
-});
-
-// GET product by ID
-router.get("/products/:id", (req, res) => {
-  const product = data.products.find((p) => p.id === parseInt(req.params.id));
-
-  if (product) {
-    res.status(200).json({ ...product, price: getCurrentPrice(product) });
-  } else {
-    res.status(404).json({ message: "Product not found" });
-  }
-});
-
-// GET product categories
-router.get("/categories", (req, res) => {
-  const categories = [...new Set(data.products.map((p) => p.category))];
-  res.status(200).json({ categories });
-});
-
-// GET products by category
-router.get("/categories/:category", (req, res) => {
-  const products = data.products
-    .filter(
-      (p) => p.category.toLowerCase() === req.params.category.toLowerCase(),
-    )
-    .map((p) => ({ ...p, price: getCurrentPrice(p) }));
-  if (products.length === 0) {
-    return res
-      .status(404)
-      .json({ message: "No products found in this category" });
-  }
-  res.status(200).json({ products });
-});
-
-/*
--------------------
-BASKET INTERACTIONS 
--------------------
-*/
-
-// Create or get existing basket for a customer
-router.post("/baskets/:customerId", (req, res) => {
+export const createBasketForCustomer = (req, res) => {
   const existing = data.baskets.find(
     (b) => b.customerId === req.params.customerId,
   );
@@ -73,10 +22,9 @@ router.post("/baskets/:customerId", (req, res) => {
   saveData(data);
 
   res.status(201).json({ message: "Basket created", basket: newBasket });
-});
+};
 
-// Create or get existing basket for a customer based on email
-router.post("/baskets/:email", (req, res) => {
+export const createBasketForEmail = (req, res) => {
   const existing = data.baskets.find((b) => b.email === req.params.email);
 
   if (existing) {
@@ -94,10 +42,9 @@ router.post("/baskets/:email", (req, res) => {
   saveData(data);
 
   res.status(201).json({ message: "Basket created", basket: newBasket });
-});
+};
 
-// GET basket for a specific customer
-router.get("/baskets/:customerId", (req, res) => {
+export const getBasketForCustomer = (req, res) => {
   const basket = data.baskets.find(
     (b) => b.customerId === req.params.customerId,
   );
@@ -107,10 +54,9 @@ router.get("/baskets/:customerId", (req, res) => {
   }
 
   res.status(200).json({ basket });
-});
+};
 
-// Add item to basket
-router.post("/baskets/:customerId/:productId/:quantity", (req, res) => {
+export const addItemToBasket = (req, res) => {
   const productId = parseInt(req.params.productId);
   const quantity = parseInt(req.params.quantity);
 
@@ -132,10 +78,9 @@ router.post("/baskets/:customerId/:productId/:quantity", (req, res) => {
 
   saveData(data);
   res.status(200).json({ message: "Item added to basket", basket });
-});
+};
 
-// Remove item from basket
-router.delete("/baskets/:customerId/:productId", (req, res) => {
+export const removeItemFromBasket = (req, res) => {
   const basket = data.baskets.find(
     (b) => b.customerId === req.params.customerId,
   );
@@ -149,6 +94,4 @@ router.delete("/baskets/:customerId/:productId", (req, res) => {
   );
   saveData(data);
   res.status(200).json({ message: "Item removed from basket", basket });
-});
-
-export default router;
+};
