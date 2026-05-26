@@ -1,4 +1,3 @@
-// import data from "../../../backend/data/data.json";
 import type { Product } from "../types";
 
 export async function fetchProducts(): Promise<Product[]> {

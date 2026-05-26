@@ -11,11 +11,7 @@ interface NavbarProps {
 
 //TODO: needs a refactor to reflect real user data
 
-
 export default function Navbar({ currentUser }: NavbarProps) {
-  // const user: string | null = localStorage.getItem("fname");
-  // const userId: string = user ? user.slice(0, 2).toUpperCase() : "Login";
-  // const logClass: string = user ? "profText" : "";
 
   const [totalInCart, setTotalInCart] = useState(0);
   const customerId = currentUser?.customerId ?? "1";

@@ -14,7 +14,7 @@
 }
 
 .product-card img,
-#product-image {
+.product-card img {
   width: 100%;
   aspect-ratio: 1 / 1;
   object-fit: cover;
@@ -24,15 +24,10 @@
 }
 
 .product-card img:hover,
-#product-image:hover {
+.product-card img:hover {
   transform: translateY(-4px) scale(1.02);
   box-shadow: 0 12px 20px rgba(0, 0, 0, 0.08);
 }
-
-/* .product-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.06);
-} */
 
 .product-card .price {
   font-weight: 600;

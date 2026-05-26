@@ -1,0 +1,81 @@
+.basket-item {
+  background: var(--white);
+  display: flex;
+  align-items: center;
+  padding: 1.2rem 2rem;
+  border-radius: 18px;
+  gap: 2rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0);
+}
+
+.basket-item:hover {
+  transform: scale(1.01);
+}
+
+.basket-img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.basket-info {
+  flex: 1; 
+}
+
+.remove-btn {
+  background: transparent;
+  border: 1px solid var(--beige);
+  color: var(--beige);
+  padding: 0.7rem 1.5rem;
+  border-radius: 40px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  margin-left: auto;
+}
+
+.remove-btn:hover {
+  background: var(--beige);
+  color: white;
+}
+
+/* Quantity controls Basket */
+.quantity-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 0.5rem;
+}
+
+.quantity-controls button {
+  background: var(--beige);
+  color: white;
+  border: none;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.2s ease;
+}
+
+.quantity-controls button:hover {
+  transform: scale(1.1);
+}
+
+.quantity-controls span {
+  min-width: 20px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.quantity-input {
+  width: 3.5rem;
+  text-align: center;
+  border: 1px solid var(--beige);
+  border-radius: 10px;
+  padding: 0.2rem 0.4rem;
+  font-weight: 600;
+}

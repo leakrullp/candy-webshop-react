@@ -1,0 +1,29 @@
+.carousel {
+  max-width: auto;
+  margin: 20px auto;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.carousel-inner {
+  background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+  height: 200px;
+  display: flex;
+  align-items: center;
+}
+
+.carousel-item img {
+  width: auto;
+  height: 160px;
+  filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.2));
+  transition: transform 0.3s ease;
+}
+
+.carousel-item img:hover {
+  transform: scale(1.1);
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  filter: invert(1);
+}

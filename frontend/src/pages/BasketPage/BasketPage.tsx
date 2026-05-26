@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react";
-import BasketItem from "../components/BasketItem";
-import { fetchProducts } from "../services/productsService";
-import { getCurrentPrice } from "../utils/priceUtils";
-import type { BasketProduct } from "../types";
+import BasketItem from "../../components/BasketItem/BasketItem";
+import { fetchProducts } from "../../services/productsService";
+import { getCurrentPrice } from "../../utils/priceUtils";
+import type { BasketProduct } from "../../types";
+import { handleRemove, handleUpdateQuantity } from "../../utils/cartUtils";
+import "./BasketPage.css";
 import {
   removeItem,
   updateQuantity,
   calculateTotal,
-  addToBasket,
-  removeFromBasket,
   getBasket,
-} from "../services/basketService";
+} from "../../services/basketService";
 
 export default function BasketPage() {
   const [items, setItems] = useState<BasketProduct[]>([]);
@@ -41,27 +41,14 @@ export default function BasketPage() {
     loadBasket();
   }, []);
 
-  const handleRemove = async (id: number) => {
-    const customerId = "1";
-
-    try {
-      await removeFromBasket(customerId, id);
-      setItems((currentItems) => removeItem(currentItems, id));
-    } catch (e) {
-      console.error(e);
-    }
+  const removeBasketItem = async (id: number) => {
+    await handleRemove(id);
+    setItems((currentItems) => removeItem(currentItems, id));
   };
 
-  const handleUpdateQuantity = async (id: number, quantity: number) => {
-    const customerId = "1";
-
-    try {
-      await removeFromBasket(customerId, id);
-      await addToBasket(customerId, id, quantity);
-      setItems((currentItems) => updateQuantity(currentItems, id, quantity));
-    } catch (e) {
-      console.error(e);
-    }
+  const updateBasketQuantity = async (id: number, quantity: number) => {
+    await handleUpdateQuantity(id, quantity);
+    setItems((currentItems) => updateQuantity(currentItems, id, quantity));
   };
 
   const total = calculateTotal(items);
@@ -79,8 +66,8 @@ export default function BasketPage() {
               <BasketItem
                 key={item.productId}
                 item={item}
-                onRemove={handleRemove}
-                onUpdateQuantity={handleUpdateQuantity}
+                onRemove={removeBasketItem}
+                onUpdateQuantity={updateBasketQuantity}
               />
             ))}
 

@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import { fetchProducts } from "../services/productsService";
-import { getCurrentPrice } from "../utils/priceUtils";
-import type { Product } from "../types";
-import { handleAddToCart } from "../utils/cartUtils";
+import { fetchProducts } from "../../services/productsService";
+import { getCurrentPrice } from "../../utils/priceUtils";
+import type { Product } from "../../types";
+import { handleAddToCart } from "../../utils/cartUtils";
+import "./ProductDetailPage.css";
 
 export default function ProductDetailPage() {
   const [product, setProduct] = useState<Product | null>(null);
