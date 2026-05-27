@@ -10,7 +10,7 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
   const [password, setPassword] = React.useState("");
   const [error, setError] = React.useState("");
 
-  const handleSubmit = (e: React.SubmitEvent) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError("");
 
@@ -65,3 +65,4 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
 };
 
 export default Login;
+

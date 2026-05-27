@@ -12,60 +12,29 @@ import {
 } from "./pages";
 import { useState, useEffect } from "react";
 import type { User } from "./types";
-import data from "../../backend/data/data.json";
 
 function AppContent() {
   const { products, loading, error } = useProducts();
-  const { handleLogin, handleRegister } = useAuth();
   const [currentUser, setCurrentUser] = useState<User | null>(null);
+  const { handleLogin, handleRegister, handleLogout } = useAuth(setCurrentUser);
 
   useEffect(() => {
-    async function checkUser() {
-      //hardcoded fix that sets the current user to user 1 from the data
-      const user = data.baskets[0];
-      setCurrentUser(user);
+    const stored = localStorage.getItem("currentUser");
+    if (stored) {
+      setCurrentUser(JSON.parse(stored));
     }
-    checkUser();
   }, []);
 
   return (
     <>
-      <Navbar currentUser={currentUser} setCurrentUser={setCurrentUser} />
+      <Navbar currentUser={currentUser} setCurrentUser={setCurrentUser} onLogout={handleLogout} />
       <Routes>
-        <Route
-          path="/"
-          element={
-            <FrontPage
-              products={products}
-              loading={loading}
-              error={error}
-              currentUser={currentUser}
-            />
-          }
-        />
-        <Route
-          path="/ProductsPage"
-          element={
-            <ProductsPage
-              products={products}
-              loading={loading}
-              error={error}
-              currentUser={currentUser}
-            />
-          }
-        />
+        <Route path="/" element={<FrontPage products={products} loading={loading} error={error} currentUser={currentUser} />} />
+        <Route path="/ProductsPage" element={<ProductsPage products={products} loading={loading} error={error} currentUser={currentUser} />} />
         <Route path="/login" element={<Login onLogin={handleLogin} />} />
         <Route path="/cart" element={<BasketPage />} />
-        <Route
-          path="/register"
-          element={<Register onRegister={handleRegister} />}
-        />
-        <Route
-          path="/country/:country"
-          element={
-            <CountryPage products={products} loading={loading} error={error} />
-          }
-        />
+        <Route path="/register" element={<Register onRegister={handleRegister} />} />
+        <Route path="/country/:country" element={<CountryPage products={products} loading={loading} error={error} />} />
         <Route path="/products/:id" element={<ProductDetailPage />} />
       </Routes>
     </>

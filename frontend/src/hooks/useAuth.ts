@@ -1,12 +1,14 @@
 import { useNavigate } from "react-router-dom";
 import { loginUser, registerUser } from "../services/authService";
+import type { User } from "../types";
 
-const useAuth = () => {
+const useAuth = (setCurrentUser: (user: User | null) => void) => {
   const navigate = useNavigate();
 
   const handleLogin = async (email: string, password: string) => {
     const customer = await loginUser(email, password);
     if (customer) {
+      setCurrentUser(customer);
       navigate("/");
     } else {
       navigate("/register");
@@ -27,7 +29,14 @@ const useAuth = () => {
     }
   };
 
-  return { handleLogin, handleRegister };
+  const handleLogout = () => {
+    setCurrentUser(null);
+    localStorage.removeItem("currentUser");
+    navigate("/");
+  };
+
+  return { handleLogin, handleRegister, handleLogout };
 };
 
 export default useAuth;
+
