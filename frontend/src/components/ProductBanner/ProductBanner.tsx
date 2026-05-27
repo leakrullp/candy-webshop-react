@@ -1,6 +1,6 @@
-import { useState } from "react";
-import { ProductCard } from "../index";
-import type { Product } from "../../types";
+import { Link } from "react-router-dom";
+import { ProductGrid } from "../index";
+import type { Product, FilterProps } from "../../types";
 import "./ProductBanner.css";
 
 type Props = {
@@ -9,8 +9,10 @@ type Props = {
   filter?: (item: Product) => boolean;
 };
 
-const VISIBLE = 4;
-const CARD_WIDTH = 276 + 32; // width + gap
+const startingFilters: FilterProps = {
+  countries: [],
+  categories: [],
+};
 
 export default function ProductBanner({
   title,
@@ -18,46 +20,17 @@ export default function ProductBanner({
   filter = () => true,
 }: Props) {
   const filtered = products.filter(filter);
-  const [index, setIndex] = useState(0);
-
-  const maxIndex = Math.max(0, filtered.length - VISIBLE);
-
-  function goLeft() {
-    setIndex((i) => Math.max(0, i - 1));
-  }
-
-  function goRight() {
-    setIndex((i) => Math.min(maxIndex, i + 1));
-  }
+  const displayedProducts = filtered.slice(0, 4);
 
   return (
     <div className="product-banner">
-      <h2 className="product-banner-title">{title}</h2>
+      <div className="d-flex justify-content-between">
+        <h2 className="product-banner-title">{title}</h2>
 
-      <button
-        className="banner-arrow left"
-        onClick={goLeft}
-        disabled={index === 0}
-      >
-        ❮
-      </button>
-      <button
-        className="banner-arrow right"
-        onClick={goRight}
-        disabled={index === maxIndex}
-      >
-        ❯
-      </button>
-
-      <div className="product-banner-track-wrapper">
-        <div
-          className="product-banner-track"
-          style={{ transform: `translateX(${-index * CARD_WIDTH}px)` }}
-        >
-          {filtered.map((p) => (
-            <ProductCard key={p.id} product={p} />
-          ))}
-        </div>
+        <Link to="/ProductsPage">See all items</Link>
+      </div>
+      <div className="cards-container">
+        <ProductGrid filters={startingFilters} products={displayedProducts} />
       </div>
     </div>
   );

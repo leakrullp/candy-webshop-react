@@ -1,6 +1,6 @@
 .product-card {
   background: var(--white);
-  padding: 2.5rem 2rem;
+  padding: 2rem 2rem;
   border-radius: 18px;
   transition:
     transform 0.25s ease,
@@ -10,7 +10,7 @@
 .product-card h2 {
   font-size: 1.2rem;
   text-align: center;
-  margin: 2rem 0 0.8rem;
+  margin: 1rem 0 0.8rem;
 }
 
 .product-card img,
@@ -20,7 +20,9 @@
   object-fit: cover;
   border-radius: 14px;
   cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .product-card img:hover,

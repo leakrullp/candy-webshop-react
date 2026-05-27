@@ -38,3 +38,8 @@ export type User = {
   password: string;
   items: Array<{ productId: number; quantity: number }>;
 };
+
+export type FilterPageProps = {
+  countries: string[];
+  categories: string[];
+};

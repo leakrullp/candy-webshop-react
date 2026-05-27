@@ -1,11 +1,7 @@
-import type { LoadProductsProps } from "../../types";
+import type { LoadProductsProps, FilterProps } from "../../types";
 import { useState } from "react";
 import { ProductGrid, FilterBox } from "../../components";
-
-interface FilterProps {
-  countries: string[];
-  categories: string[];
-}
+import "./ProductsPage.css";
 
 const startingFilters: FilterProps = {
   countries: [],
@@ -24,10 +20,10 @@ export default function ProductsPage({
       <main className="container mt-5">
         {error && <p>{error}</p>}
         {!loading && (
-          <>
+          <div className="products-page">
             <FilterBox filters={filters} setFilters={setFilters} />
             <ProductGrid filters={filters} products={products} />
-          </>
+          </div>
         )}
       </main>
     </>
