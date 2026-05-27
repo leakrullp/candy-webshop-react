@@ -1,13 +1,58 @@
+import {
+  fetchCategories,
+  fetchCountries,
+} from "../../services/productsService";
+import { useEffect, useState } from "react";
+
 interface FilterBoxProps {
-  filters: { countries: string[]; categories: string[] };
+  filters: { countries: string[]; categories: string[]; discounted: boolean };
   setFilters: React.Dispatch<
-    React.SetStateAction<{ countries: string[]; categories: string[] }>
+    React.SetStateAction<{
+      countries: string[];
+      categories: string[];
+      discounted: boolean;
+    }>
   >;
 }
 
+function FilterCheckInput({ value, checked, onChange }: any) {
+  return (
+    <div className="form-check">
+      <input
+        className="form-check-input"
+        type="checkbox"
+        value={value}
+        id={"check" + value}
+        checked={checked}
+        onChange={onChange}
+      />
+      <label className="form-check-label" htmlFor={"check" + value}>
+        {value}
+      </label>
+    </div>
+  );
+}
+
 export default function FilterBox({ filters, setFilters }: FilterBoxProps) {
+  const [countries, setCountries] = useState<string[]>([]);
+  const [categories, setCategories] = useState<string[]>([]);
+
+  useEffect(() => {
+    const loadCountries = async () => {
+      const countriesData: string[] = await fetchCountries();
+      setCountries(countriesData);
+    };
+    const loadCategories = async () => {
+      const categoriesData: string[] = await fetchCategories();
+      setCategories(categoriesData);
+    };
+
+    loadCountries();
+    loadCategories();
+  }, []);
+
   function resetFilters() {
-    setFilters({ countries: [], categories: [] });
+    setFilters({ countries: [], categories: [], discounted: false });
   }
 
   function handleToggle(group: "countries" | "categories", value: string) {
@@ -19,6 +64,7 @@ export default function FilterBox({ filters, setFilters }: FilterBoxProps) {
       return { ...prev, [group]: updated };
     });
   }
+
   return (
     <>
       <section className="mt-5 p-4 bg-white border rounded shadow-sm">
@@ -36,131 +82,40 @@ export default function FilterBox({ filters, setFilters }: FilterBoxProps) {
           <div className="col-12 col-md-4">
             <label className="form-label fw-bold">Countries</label>
             <div id="countryFilters">
-              <div className="form-check">
-                <input
-                  className="form-check-input"
-                  type="checkbox"
-                  value="Denmark"
-                  id="checkDenmark"
-                  checked={filters.countries.includes("Denmark")}
-                  onChange={() => handleToggle("countries", "Denmark")}
+              {countries.map((value) => (
+                <FilterCheckInput
+                  key={value}
+                  value={value}
+                  checked={filters.countries.includes(value)}
+                  onChange={() => handleToggle("countries", value)}
                 />
-                <label className="form-check-label" htmlFor="checkDenmark">
-                  Denmark
-                </label>
-              </div>
-              <div className="form-check">
-                <input
-                  className="form-check-input"
-                  type="checkbox"
-                  value="Germany"
-                  id="checkGermany"
-                  checked={filters.countries.includes("Germany")}
-                  onChange={() => handleToggle("countries", "Germany")}
-                />
-                <label className="form-check-label" htmlFor="checkGermany">
-                  Germany
-                </label>
-              </div>
-              <div className="form-check">
-                <input
-                  className="form-check-input"
-                  type="checkbox"
-                  value="Poland"
-                  id="checkPoland"
-                  checked={filters.countries.includes("Poland")}
-                  onChange={() => handleToggle("countries", "Poland")}
-                />
-                <label className="form-check-label" htmlFor="checkPoland">
-                  Poland
-                </label>
-              </div>
-              <div className="form-check">
-                <input
-                  className="form-check-input"
-                  type="checkbox"
-                  value="Greece"
-                  id="checkGreece"
-                  checked={filters.countries.includes("Greece")}
-                  onChange={() => handleToggle("countries", "Greece")}
-                />
-                <label className="form-check-label" htmlFor="checkGreece">
-                  Greece
-                </label>
-              </div>
-              <div className="form-check">
-                <input
-                  className="form-check-input"
-                  type="checkbox"
-                  value="Serbia"
-                  id="checkSerbia"
-                  checked={filters.countries.includes("Serbia")}
-                  onChange={() => handleToggle("countries", "Serbia")}
-                />
-                <label className="form-check-label" htmlFor="checkSerbia">
-                  Serbia
-                </label>
-              </div>
+              ))}
             </div>
           </div>
 
           <div className="col-12 col-md-4">
             <label className="form-label fw-bold">Categories</label>
             <div id="categoryFilters">
-              <div className="form-check">
-                <input
-                  className="form-check-input"
-                  type="checkbox"
-                  value="Gummies"
-                  id="checkGummies"
-                  checked={filters.categories.includes("Gummies")}
-                  onChange={() => handleToggle("categories", "Gummies")}
+              {categories.map((value) => (
+                <FilterCheckInput
+                  key={value}
+                  value={value}
+                  checked={filters.categories.includes(value)}
+                  onChange={() => handleToggle("categories", value)}
                 />
-                <label className="form-check-label" htmlFor="checkGummies">
-                  Gummies
-                </label>
-              </div>
-              <div className="form-check">
-                <input
-                  className="form-check-input"
-                  type="checkbox"
-                  value="Chocolate"
-                  id="checkChocolate"
-                  checked={filters.categories.includes("Chocolate")}
-                  onChange={() => handleToggle("categories", "Chocolate")}
-                />
-                <label className="form-check-label" htmlFor="checkChocolate">
-                  Chocolate
-                </label>
-              </div>
-              <div className="form-check">
-                <input
-                  className="form-check-input"
-                  type="checkbox"
-                  value="Licorice"
-                  id="checkLicorice"
-                  checked={filters.categories.includes("Licorice")}
-                  onChange={() => handleToggle("categories", "Licorice")}
-                />
-                <label className="form-check-label" htmlFor="checkLicorice">
-                  Licorice
-                </label>
-              </div>
-              <div className="form-check">
-                <input
-                  className="form-check-input"
-                  type="checkbox"
-                  value="Bars and biscuits"
-                  id="checkBars"
-                  checked={filters.categories.includes("Bars and biscuits")}
-                  onChange={() =>
-                    handleToggle("categories", "Bars and biscuits")
-                  }
-                />
-                <label className="form-check-label" htmlFor="checkBars">
-                  Bars and biscuits
-                </label>
-              </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="col-12 col-md-4">
+            <label className="form-label fw-bold">Discount applied</label>
+            {/* FIX THIS */}
+            <div id="discountFilters">
+              <FilterCheckInput
+                value="discounted"
+                checked={filters.categories.includes("discounted")}
+                onChange={() => handleToggle("categories", "discounted")}
+              />
             </div>
           </div>
         </div>

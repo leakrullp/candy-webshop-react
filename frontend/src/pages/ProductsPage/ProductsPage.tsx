@@ -1,9 +1,9 @@
-import type { LoadProductsProps, FilterProps } from "../../types";
+import type { LoadProductsProps, FilterPageProps } from "../../types";
 import { useState } from "react";
 import { ProductGrid, FilterBox } from "../../components";
 import "./ProductsPage.css";
 
-const startingFilters: FilterProps = {
+const startingFilters: FilterPageProps = {
   countries: [],
   categories: [],
 };
@@ -13,7 +13,7 @@ export default function ProductsPage({
   loading,
   error,
 }: LoadProductsProps) {
-  const [filters, setFilters] = useState<FilterProps>(startingFilters);
+  const [filters, setFilters] = useState<FilterPageProps>(startingFilters);
 
   return (
     <>
