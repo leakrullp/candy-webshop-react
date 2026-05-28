@@ -9,10 +9,10 @@ import {
 
 const router = express.Router();
 
-router.post("/baskets/:customerId", createBasketForCustomer);
-router.post("/baskets/:email", createBasketForEmail);
-router.get("/baskets/:customerId", getBasketForCustomer);
-router.post("/baskets/:customerId/:productId/:quantity", addItemToBasket);
-router.delete("/baskets/:customerId/:productId", removeItemFromBasket);
+router.post("/:customerId", createBasketForCustomer);
+router.post("/:email", createBasketForEmail);
+router.get("/:customerId", getBasketForCustomer);
+router.post("/:customerId/:productId/:quantity", addItemToBasket);
+router.delete("/:customerId/:productId", removeItemFromBasket);
 
 export default router;

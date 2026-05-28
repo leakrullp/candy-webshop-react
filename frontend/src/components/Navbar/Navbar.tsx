@@ -6,13 +6,11 @@ import { getBasket } from "../../services/basketService";
 
 interface NavbarProps {
   currentUser: User | null;
-  setCurrentUser?: (user: User) => void;
+  setCurrentUser?: (user: User | null) => void;
+  onLogout: () => void;
 }
 
-//TODO: needs a refactor to reflect real user data
-
-export default function Navbar({ currentUser }: NavbarProps) {
-
+export default function Navbar({ currentUser, onLogout }: NavbarProps) {
   const [totalInCart, setTotalInCart] = useState(0);
   const customerId = currentUser?.customerId ?? "1";
 
@@ -28,7 +26,6 @@ export default function Navbar({ currentUser }: NavbarProps) {
       }
     };
 
-    // load initial value
     void updateCart();
 
     window.addEventListener("cartUpdated", updateCart);
@@ -42,7 +39,14 @@ export default function Navbar({ currentUser }: NavbarProps) {
     <nav className="navbar">
       <Link to="/">Home</Link>
       <Link to="/ProductsPage">Products</Link>
-      <Link /*className={logClass}*/ to="/login">Login</Link>
+      {currentUser ? (
+        <>
+          <span className="profText">{currentUser.firstname}</span>
+          <button onClick={onLogout} className="logout-btn">Logout</button>
+        </>
+      ) : (
+        <Link to="/login">Login</Link>
+      )}
       <Link to="/cart">
         Cart
         <span id="cart-count" className="cart-count">

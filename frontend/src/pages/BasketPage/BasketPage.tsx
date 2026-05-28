@@ -14,6 +14,8 @@ import {
 
 export default function BasketPage() {
   const [items, setItems] = useState<BasketProduct[]>([]);
+  const stored = localStorage.getItem("currentUser");
+  const currentUser = stored ? JSON.parse(stored) : null;
 
   useEffect(() => {
     const loadBasket = async () => {
@@ -55,7 +57,9 @@ export default function BasketPage() {
 
   return (
     <main>
-      <h1 id="basket-page-title">Basket</h1>
+      <h1 id="basket-page-title">
+        {currentUser ? `${currentUser.firstname}'s basket` : "Basket"}
+      </h1>
 
       <div id="basket-container">
         {items.length === 0 ? (
