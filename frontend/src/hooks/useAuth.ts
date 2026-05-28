@@ -6,7 +6,7 @@ const useAuth = (setCurrentUser: (user: User | null) => void) => {
   const navigate = useNavigate();
 
   const handleLogin = async (email: string, password: string) => {
-    const customer = await loginUser(email, password);
+    const customer: User | null = await loginUser(email, password);
     if (customer) {
       setCurrentUser(customer);
       navigate("/");
@@ -19,9 +19,14 @@ const useAuth = (setCurrentUser: (user: User | null) => void) => {
     fname: string,
     lname: string,
     email: string,
-    password: string
+    password: string,
   ) => {
-    const customer = await registerUser(fname, lname, email, password);
+    const customer: User | null = await registerUser(
+      fname,
+      lname,
+      email,
+      password,
+    );
     if (customer) {
       navigate("/login");
     } else {
@@ -29,14 +34,7 @@ const useAuth = (setCurrentUser: (user: User | null) => void) => {
     }
   };
 
-  const handleLogout = () => {
-    setCurrentUser(null);
-    localStorage.removeItem("currentUser");
-    navigate("/");
-  };
-
-  return { handleLogin, handleRegister, handleLogout };
+  return { handleLogin, handleRegister };
 };
 
 export default useAuth;
-

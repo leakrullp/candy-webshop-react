@@ -49,7 +49,12 @@ export default function ProductDetailPage() {
 
         <p>{product.description}</p>
 
-        <button onClick={() => handleAddToCart(product.id)} id="add-to-cart-btn">Add to Cart</button>
+        <button
+          onClick={() => handleAddToCart(product.id)}
+          id="add-to-cart-btn"
+        >
+          Add to Cart
+        </button>
       </div>
     </main>
   );
