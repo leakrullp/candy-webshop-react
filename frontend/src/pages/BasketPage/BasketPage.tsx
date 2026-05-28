@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
-import BasketItem from "../../components/BasketItem/BasketItem";
-import { fetchProducts } from "../../services/productsService";
+import { BasketItem } from "../../components";
 import { getCurrentPrice } from "../../utils/priceUtils";
-import type { BasketProduct } from "../../types";
+import type { BasketProduct, LoadProductsProps } from "../../types";
 import { handleRemove, handleUpdateQuantity } from "../../utils/cartUtils";
 import "./BasketPage.css";
 import {
@@ -12,20 +11,32 @@ import {
   getBasket,
 } from "../../services/basketService";
 
-export default function BasketPage() {
+export default function BasketPage({
+  products,
+  loading,
+  error,
+  currentUser,
+}: LoadProductsProps) {
   const [items, setItems] = useState<BasketProduct[]>([]);
-  const stored = localStorage.getItem("currentUser");
-  const currentUser = stored ? JSON.parse(stored) : null;
 
   useEffect(() => {
     const loadBasket = async () => {
-      const customerId = "1"; // for testing
+      const customerId = currentUser?.customerId;
 
-      const basketData = await getBasket(customerId);
-      const products = await fetchProducts();
+      let basketData;
+      if (customerId) {
+        const fetchedCustomer = await getBasket(customerId);
+        basketData = fetchedCustomer.basket.items;
+      } else {
+        const localBasket = localStorage.getItem("localUser");
+        basketData = localBasket
+          ? JSON.parse(localBasket).items
+          : { items: [] };
+      }
 
       const basketItems: BasketProduct[] = [];
-      for (const item of basketData.basket.items) {
+
+      for (const item of basketData) {
         const product = products.find((p) => p.id === item.productId);
         if (!product) continue;
 
@@ -41,7 +52,7 @@ export default function BasketPage() {
     };
 
     loadBasket();
-  }, []);
+  }, [products]);
 
   const removeBasketItem = async (id: number) => {
     await handleRemove(id);
@@ -60,8 +71,29 @@ export default function BasketPage() {
       <h1 id="basket-page-title">
         {currentUser ? `${currentUser.firstname}'s basket` : "Basket"}
       </h1>
+      {error && <p>{error}</p>}
+      {!loading && (
+        <div id="basket-container">
+          {items.length === 0 ? (
+            <p>Your basket is empty.</p>
+          ) : (
+            <>
+              {items.map((item) => (
+                <BasketItem
+                  key={item.productId}
+                  item={item}
+                  onRemove={removeBasketItem}
+                  onUpdateQuantity={updateBasketQuantity}
+                />
+              ))}
 
-      <div id="basket-container">
+              <h2 id="cart-sum">Total: {total.toFixed(2)} kr.</h2>
+            </>
+          )}
+        </div>
+      )}
+
+      {/* <div id="basket-container">
         {items.length === 0 ? (
           <p>Your basket is empty.</p>
         ) : (
@@ -78,7 +110,7 @@ export default function BasketPage() {
             <h2 id="cart-sum">Total: {total.toFixed(2)} kr.</h2>
           </>
         )}
-      </div>
+      </div> */}
     </main>
   );
 }

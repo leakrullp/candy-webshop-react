@@ -11,12 +11,18 @@ import {
   CountryPage,
 } from "./pages";
 import { useState, useEffect } from "react";
-import type { User } from "./types";
+import type { User, UserBasketItem } from "./types";
 
 function AppContent() {
   const { products, loading, error } = useProducts();
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const { handleLogin, handleRegister } = useAuth(setCurrentUser);
+
+  //if a user is not logged in, localUser is the "basket" we are saving to and reading from
+  const localUserBasket: { items: UserBasketItem[] } = {
+    items: [],
+  };
+  localStorage.setItem("localUser", JSON.stringify(localUserBasket));
 
   useEffect(() => {
     const stored = localStorage.getItem("currentUser");
@@ -52,7 +58,17 @@ function AppContent() {
           }
         />
         <Route path="/login" element={<Login onLogin={handleLogin} />} />
-        <Route path="/cart" element={<BasketPage />} />
+        <Route
+          path="/cart"
+          element={
+            <BasketPage
+              products={products}
+              loading={loading}
+              error={error}
+              currentUser={currentUser}
+            />
+          }
+        />
         <Route
           path="/register"
           element={<Register onRegister={handleRegister} />}

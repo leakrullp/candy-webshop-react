@@ -6,12 +6,14 @@ import "./ProductsPage.css";
 const startingFilters: FilterPageProps = {
   countries: [],
   categories: [],
+  discounted: false,
 };
 
 export default function ProductsPage({
   products,
   loading,
   error,
+  currentUser,
 }: LoadProductsProps) {
   const [filters, setFilters] = useState<FilterPageProps>(startingFilters);
 
@@ -22,7 +24,11 @@ export default function ProductsPage({
         {!loading && (
           <div className="products-page">
             <FilterBox filters={filters} setFilters={setFilters} />
-            <ProductGrid filters={filters} products={products} />
+            <ProductGrid
+              filters={filters}
+              products={products}
+              currentUser={currentUser}
+            />
           </div>
         )}
       </main>
