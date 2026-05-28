@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import "./Navbar.css";
 import type { User } from "../../types";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { getBasket } from "../../services/basketService";
 
 interface NavbarProps {
@@ -11,21 +11,28 @@ interface NavbarProps {
 
 export default function Navbar({ currentUser, setCurrentUser }: NavbarProps) {
   const [totalInCart, setTotalInCart] = useState(0);
+  const customerIdRef = useRef<string | undefined>(undefined);
   const customerId = currentUser?.customerId;
   const navigate = useNavigate();
 
   const handleLogout = () => {
     setCurrentUser(null);
     localStorage.removeItem("currentUser");
+    localStorage.setItem("localUser", JSON.stringify({ items: [] }));
     navigate("/");
   };
 
   useEffect(() => {
+    customerIdRef.current = customerId;
+
     const updateCart = async () => {
+      const id =
+        customerIdRef.current ??
+        JSON.parse(localStorage.getItem("currentUser") ?? "null")?.customerId;
       try {
         let items;
-        if (customerId) {
-          const basketData = await getBasket(customerId);
+        if (id) {
+          const basketData = await getBasket(id);
           items = basketData?.basket?.items;
         } else {
           const localBasket = localStorage.getItem("localUser");
@@ -49,7 +56,6 @@ export default function Navbar({ currentUser, setCurrentUser }: NavbarProps) {
     void updateCart();
 
     window.addEventListener("cartUpdated", updateCart);
-
     return () => {
       window.removeEventListener("cartUpdated", updateCart);
     };

@@ -26,11 +26,13 @@ export default function FrontPage({
 
           <Carousel />
           <ProductBanner
+            currentUser={currentUser}
             products={products}
             title="On sale"
             filter={(p) => p.discount > 0}
           />
           <ProductBanner
+            currentUser={currentUser}
             products={products}
             title="Danish products"
             filter={(p) => p.country === "Denmark"}

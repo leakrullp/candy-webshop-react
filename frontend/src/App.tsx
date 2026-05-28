@@ -18,16 +18,13 @@ function AppContent() {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const { handleLogin, handleRegister } = useAuth(setCurrentUser);
 
-  //if a user is not logged in, localUser is the "basket" we are saving to and reading from
-  const localUserBasket: { items: UserBasketItem[] } = {
-    items: [],
-  };
-  localStorage.setItem("localUser", JSON.stringify(localUserBasket));
-
   useEffect(() => {
     const stored = localStorage.getItem("currentUser");
     if (stored) {
       setCurrentUser(JSON.parse(stored));
+    }
+    if (!localStorage.getItem("localUser")) {
+      localStorage.setItem("localUser", JSON.stringify({ items: [] }));
     }
   }, []);
 
