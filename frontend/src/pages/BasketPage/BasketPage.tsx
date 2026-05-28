@@ -90,25 +90,6 @@ export default function BasketPage({
           )}
         </div>
       )}
-
-      {/* <div id="basket-container">
-        {items.length === 0 ? (
-          <p>Your basket is empty.</p>
-        ) : (
-          <>
-            {items.map((item) => (
-              <BasketItem
-                key={item.productId}
-                item={item}
-                onRemove={removeBasketItem}
-                onUpdateQuantity={updateBasketQuantity}
-              />
-            ))}
-
-            <h2 id="cart-sum">Total: {total.toFixed(2)} kr.</h2>
-          </>
-        )}
-      </div> */}
     </main>
   );
 }
