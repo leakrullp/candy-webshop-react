@@ -1,15 +1,14 @@
 import { useParams } from "react-router-dom";
 import { ProductBanner } from "../../components";
-import type { Product } from "../../types";
+import type { LoadProductsProps } from "../../types";
 import "./CountryPage.css";
 
-type Props = {
-  products: Product[];
-  loading: boolean;
-  error: string | null;
-};
-
-const CountryPage = ({ products, loading, error }: Props) => {
+const CountryPage = ({
+  products,
+  loading,
+  error,
+  currentUser,
+}: LoadProductsProps) => {
   const { country } = useParams();
 
   const countryProducts = products.filter((p) => p.country === country);
@@ -23,6 +22,7 @@ const CountryPage = ({ products, loading, error }: Props) => {
       {error && <p>{error}</p>}
       {!loading && (
         <ProductBanner
+          currentUser={currentUser}
           products={countryProducts}
           title={`All products from ${country}`}
           filter={() => true}

@@ -24,7 +24,7 @@ export const updateQuantity = (
 };
 
 export const handleAddToCart = async (
-  currentUser: User,
+  currentUser: User | null,
   productId: number,
   quantity: number = 1,
 ) => {
