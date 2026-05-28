@@ -1,48 +1,67 @@
-export async function loginUser(email: string, password: string): Promise<{id: string, fname: string, lname: string} | null> {
-    const response = await fetch('/api/customers/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password })
-    });
+import type { User } from "../types";
 
-    if (!response.ok) {
-        throw new Error("Login failed. Please try again.");
-    }
+export async function loginUser(
+  email: string,
+  password: string,
+): Promise<User | null> {
+  const response = await fetch("/api/customers/login", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email, password }),
+  });
 
-    const data = await response.json();
+  if (!response.ok) {
+    throw new Error("Login failed. Please try again.");
+  }
 
-    if (data.customer) {
-        localStorage.setItem("customerId", data.customer.id);
-        localStorage.setItem("fname", data.customer.fname);
-        localStorage.setItem("lname", data.customer.lname);
-        localStorage.setItem("email", email);
-        return data.customer;
-    }
-    
-    return null;
-}
-export async function registerUser(fname: string, lname: string, email: string, password: string): Promise<{id: string, fname: string, lname: string, email: string} | null> {
+  const data = await response.json();
 
-    const response = await fetch('/api/customers/register', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({fname,lname,email, password})
-    });
+  if (data.customer) {
+    const user: User = {
+      customerId: data.customer.customerId,
+      firstname: data.customer.firstname,
+      lastname: data.customer.lastname,
+      email: email,
+      password: "",
+      items: data.customer.items,
+    };
+    localStorage.setItem("currentUser", JSON.stringify(user));
+    return user;
+  }
 
-    if (!response.ok) {
-        throw new Error("register failed. Please try again.");
-    }
-
-    const data = await response.json();
-
-    if (data.customer) {
-        localStorage.setItem("customerId", data.customer.id);
-        localStorage.setItem("fname", data.customer.fname);
-        localStorage.setItem("lname", data.customer.lname);
-        localStorage.setItem("email", email);
-        return data.customer;
-    }
-    
-    return null;
+  return null;
 }
 
+export async function registerUser(
+  fname: string,
+  lname: string,
+  email: string,
+  password: string,
+): Promise<User | null> {
+  const response = await fetch("/api/customers/register", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ fname, lname, email, password }),
+  });
+
+  if (!response.ok) {
+    throw new Error("Register failed. Please try again.");
+  }
+
+  const data = await response.json();
+
+  if (data.customer) {
+    const user: User = {
+      customerId: data.customer.customerId,
+      firstname: data.customer.firstname,
+      lastname: data.customer.lastname,
+      email: email,
+      password: "",
+      items: data.customer.items,
+    };
+    localStorage.setItem("currentUser", JSON.stringify(user));
+    return user;
+  }
+
+  return null;
+}

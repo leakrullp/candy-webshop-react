@@ -1,18 +1,19 @@
-import React from "react";
+import { useState } from "react";
+import type { SubmitEvent } from "react";
 import { Link } from "react-router-dom";
 import { Container, Row, Form, Button } from "react-bootstrap";
 
 interface LoginProps {
   onLogin: (email: string, password: string) => void;
 }
-const Login: React.FC<LoginProps> = ({ onLogin }) => {
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
-  const [error, setError] = React.useState("");
 
-  const handleSubmit = (e: React.SubmitEvent) => {
+export function Login({ onLogin }: LoginProps) {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
+  const handleSubmit = (e: SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setError("");
 
     if (!email || !password) {
       setError("Please enter both email and password.");
@@ -62,6 +63,6 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
       </Row>
     </Container>
   );
-};
+}
 
 export default Login;

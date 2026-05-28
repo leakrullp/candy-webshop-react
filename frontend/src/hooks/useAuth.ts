@@ -1,12 +1,14 @@
 import { useNavigate } from "react-router-dom";
 import { loginUser, registerUser } from "../services/authService";
+import type { User } from "../types";
 
-const useAuth = () => {
+const useAuth = (setCurrentUser: (user: User | null) => void) => {
   const navigate = useNavigate();
 
   const handleLogin = async (email: string, password: string) => {
-    const customer = await loginUser(email, password);
+    const customer: User | null = await loginUser(email, password);
     if (customer) {
+      setCurrentUser(customer);
       navigate("/");
     } else {
       navigate("/register");
@@ -17,9 +19,14 @@ const useAuth = () => {
     fname: string,
     lname: string,
     email: string,
-    password: string
+    password: string,
   ) => {
-    const customer = await registerUser(fname, lname, email, password);
+    const customer: User | null = await registerUser(
+      fname,
+      lname,
+      email,
+      password,
+    );
     if (customer) {
       navigate("/login");
     } else {

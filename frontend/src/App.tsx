@@ -12,20 +12,17 @@ import {
 } from "./pages";
 import { useState, useEffect } from "react";
 import type { User } from "./types";
-import data from "../../backend/data/data.json";
 
 function AppContent() {
   const { products, loading, error } = useProducts();
-  const { handleLogin, handleRegister } = useAuth();
   const [currentUser, setCurrentUser] = useState<User | null>(null);
+  const { handleLogin, handleRegister } = useAuth(setCurrentUser);
 
   useEffect(() => {
-    async function checkUser() {
-      //hardcoded fix that sets the current user to user 1 from the data
-      const user = data.baskets[0];
-      setCurrentUser(user);
+    const stored = localStorage.getItem("currentUser");
+    if (stored) {
+      setCurrentUser(JSON.parse(stored));
     }
-    checkUser();
   }, []);
 
   return (
