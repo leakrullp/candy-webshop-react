@@ -51,10 +51,10 @@
 }
 
 .profText {
-  background-color: #b8a25f ;
+  background-color: var(--beige);
   border-radius: 50%;
   padding: 2px 5px;
-  color: #ffffff 
+  color: #ffffff;
 }
 
 .logout-btn {
@@ -68,7 +68,7 @@
   cursor: pointer;
 }
 
-.logout-btn::after{
+.logout-btn::after {
   content: "";
   position: absolute;
   left: 0;

@@ -4,7 +4,11 @@ import type { Product } from "../../types";
 import "./ProductCard.css";
 import { handleAddToCart } from "../../utils/cartUtils";
 
-export const ProductCard = ({ product }: { product: Product }) => {
+interface CardProps {
+  product: Product;
+}
+
+export const ProductCard = ({ product }: CardProps) => {
   const price = getCurrentPrice(product);
   const navigate = useNavigate();
 
@@ -13,12 +17,16 @@ export const ProductCard = ({ product }: { product: Product }) => {
     navigate(`/products/${product.id}`);
   };
 
-
   return (
     <div className="product-card">
       <h2>{product.name}</h2>
 
-      <img src={product.image} width={200} alt={product.name} onClick={handleViewDetails} />
+      <img
+        src={product.image}
+        width={200}
+        alt={product.name}
+        onClick={handleViewDetails}
+      />
 
       {product.discount > 0 ? (
         <>
