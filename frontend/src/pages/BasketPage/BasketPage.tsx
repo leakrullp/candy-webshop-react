@@ -29,9 +29,7 @@ export default function BasketPage({
         basketData = fetchedCustomer.basket.items;
       } else {
         const localBasket = localStorage.getItem("localUser");
-        basketData = localBasket
-          ? JSON.parse(localBasket).items
-          : { items: [] };
+        basketData = localBasket ? JSON.parse(localBasket).items : [];
       }
 
       const basketItems: BasketProduct[] = [];
@@ -52,7 +50,7 @@ export default function BasketPage({
     };
 
     loadBasket();
-  }, [products]);
+  }, [products, currentUser]);
 
   const removeBasketItem = async (id: number) => {
     await handleRemove(id);

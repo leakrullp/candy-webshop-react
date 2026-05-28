@@ -1,12 +1,13 @@
-import { addToBasket } from "../services/basketService";
-import { removeFromBasket } from "../services/basketService";
+import { addToBasket, removeFromBasket } from "../services/basketService";
+import type { User } from "../types";
 
 export const handleAddToCart = async (
+  user: User,
   productId: number,
   quantity: number = 1,
 ) => {
   try {
-    const customerId = "1";
+    const customerId = user.customerId;
 
     await addToBasket(customerId, productId, quantity);
   } catch (error) {

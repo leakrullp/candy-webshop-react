@@ -17,6 +17,8 @@ export default function ProductsPage({
 }: LoadProductsProps) {
   const [filters, setFilters] = useState<FilterPageProps>(startingFilters);
 
+  console.log("ProductsPage currentUser:", currentUser);
+
   return (
     <>
       <main className="container mt-5">
