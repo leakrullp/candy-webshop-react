@@ -14,8 +14,13 @@ interface FilterBoxProps {
     }>
   >;
 }
+interface FilterCheckInputProps {
+  value: string;
+  checked: boolean;
+  onChange: () => void;
+}
 
-function FilterCheckInput({ value, checked, onChange }: any) {
+function FilterCheckInput({ value, checked, onChange }: FilterCheckInputProps) {
   return (
     <div className="form-check">
       <input
@@ -55,7 +60,7 @@ export default function FilterBox({ filters, setFilters }: FilterBoxProps) {
     setFilters({ countries: [], categories: [], discounted: false });
   }
 
-  function handleToggle(group: "countries" | "categories", value: string) {
+  function handleArrayToggle(group: "countries" | "categories", value: string) {
     setFilters((prev) => {
       const current = prev[group];
       const updated = current.includes(value)
@@ -63,6 +68,13 @@ export default function FilterBox({ filters, setFilters }: FilterBoxProps) {
         : [...current, value];
       return { ...prev, [group]: updated };
     });
+  }
+
+  function handleDiscountToggle() {
+    setFilters((prev) => ({
+      ...prev,
+      discounted: !prev.discounted,
+    }));
   }
 
   return (
@@ -87,7 +99,7 @@ export default function FilterBox({ filters, setFilters }: FilterBoxProps) {
                   key={value}
                   value={value}
                   checked={filters.countries.includes(value)}
-                  onChange={() => handleToggle("countries", value)}
+                  onChange={() => handleArrayToggle("countries", value)}
                 />
               ))}
             </div>
@@ -101,20 +113,20 @@ export default function FilterBox({ filters, setFilters }: FilterBoxProps) {
                   key={value}
                   value={value}
                   checked={filters.categories.includes(value)}
-                  onChange={() => handleToggle("categories", value)}
+                  onChange={() => handleArrayToggle("categories", value)}
                 />
               ))}
             </div>
           </div>
 
           <div className="col-12 col-md-4">
-            <label className="form-label fw-bold">Discount applied</label>
-            {/* FIX THIS */}
+            <label className="form-label fw-bold">Special Offers</label>
             <div id="discountFilters">
               <FilterCheckInput
-                value="discounted"
-                checked={filters.categories.includes("discounted")}
-                onChange={() => handleToggle("categories", "discounted")}
+                key="Discounted"
+                value="Discounted products"
+                checked={filters.discounted} // Direct boolean check
+                onChange={handleDiscountToggle} // Direct state inversion
               />
             </div>
           </div>

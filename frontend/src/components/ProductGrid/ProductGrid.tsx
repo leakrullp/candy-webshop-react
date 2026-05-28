@@ -4,7 +4,7 @@ import "./ProductGrid.css";
 
 interface ProductGridProp {
   products: Product[];
-  filters: { countries: string[]; categories: string[] };
+  filters: { countries: string[]; categories: string[]; discounted: boolean };
   currentUser: User | null;
 }
 
@@ -13,16 +13,19 @@ export default function ProductGrid({
   filters,
   currentUser,
 }: ProductGridProp) {
-  const noFiltersChecked =
-    filters.categories.length === 0 && filters.countries.length === 0;
+  const filtered = products.filter((p) => {
+    const matchesCategory =
+      filters.categories.length === 0 ||
+      filters.categories.includes(p.category);
 
-  const filtered = noFiltersChecked
-    ? products
-    : products.filter(
-        (p) =>
-          filters.categories.includes(p.category) ||
-          filters.countries.includes(p.country),
-      );
+    const matchesCountry =
+      filters.countries.length === 0 || filters.countries.includes(p.country);
+
+    const matchesDiscount =
+      !filters.discounted || (p.discount !== undefined && p.discount > 0);
+
+    return matchesCategory && matchesCountry && matchesDiscount;
+  });
 
   return (
     <main>
