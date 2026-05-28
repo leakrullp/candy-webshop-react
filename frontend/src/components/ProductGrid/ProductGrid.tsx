@@ -1,13 +1,18 @@
-import type { Product } from "../../types";
+import type { Product, User } from "../../types";
 import { ProductCard } from "..";
 import "./ProductGrid.css";
 
 interface ProductGridProp {
   products: Product[];
   filters: { countries: string[]; categories: string[] };
+  currentUser: User | null;
 }
 
-export default function ProductGrid({ products, filters }: ProductGridProp) {
+export default function ProductGrid({
+  products,
+  filters,
+  currentUser,
+}: ProductGridProp) {
   const noFiltersChecked =
     filters.categories.length === 0 && filters.countries.length === 0;
 
@@ -24,7 +29,11 @@ export default function ProductGrid({ products, filters }: ProductGridProp) {
       <div id="products-container">
         {filtered.length === 0 && <h2>No products found</h2>}
         {filtered.map((product) => (
-          <ProductCard key={product.id} product={product} />
+          <ProductCard
+            currentUser={currentUser}
+            key={product.id}
+            product={product}
+          />
         ))}
       </div>
     </main>

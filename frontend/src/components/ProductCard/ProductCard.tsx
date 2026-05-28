@@ -1,14 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import { getCurrentPrice } from "../../utils/priceUtils";
-import type { Product } from "../../types";
+import type { CardProps } from "../../types";
 import "./ProductCard.css";
 import { handleAddToCart } from "../../utils/cartUtils";
 
-interface CardProps {
-  product: Product;
-}
-
-export const ProductCard = ({ product }: CardProps) => {
+export const ProductCard = ({ product, currentUser }: CardProps) => {
   const price = getCurrentPrice(product);
   const navigate = useNavigate();
 

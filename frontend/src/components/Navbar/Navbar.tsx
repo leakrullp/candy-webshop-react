@@ -11,7 +11,7 @@ interface NavbarProps {
 
 export default function Navbar({ currentUser, setCurrentUser }: NavbarProps) {
   const [totalInCart, setTotalInCart] = useState(0);
-  const customerId = currentUser?.customerId ?? "1";
+  const customerId = currentUser?.customerId;
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -23,8 +23,18 @@ export default function Navbar({ currentUser, setCurrentUser }: NavbarProps) {
   useEffect(() => {
     const updateCart = async () => {
       try {
-        const basketData = await getBasket(customerId);
-        const items = basketData?.basket?.items ?? [];
+        let items;
+        if (customerId) {
+          const basketData = await getBasket(customerId);
+          items = basketData?.basket?.items;
+        } else {
+          const localBasket = localStorage.getItem("localUser");
+          const basketAsJSON = localBasket
+            ? JSON.parse(localBasket)
+            : { items: [] };
+          items = basketAsJSON.items;
+        }
+
         const total = items.reduce(
           (sum: number, item: { productId: number; quantity: number }) =>
             sum + (item.quantity || 0),
@@ -61,9 +71,11 @@ export default function Navbar({ currentUser, setCurrentUser }: NavbarProps) {
       )}
       <Link to="/cart">
         Cart
-        <span id="cart-count" className="cart-count">
-          {totalInCart}
-        </span>
+        {totalInCart > 0 && (
+          <span id="cart-count" className="cart-count">
+            {totalInCart}
+          </span>
+        )}
       </Link>
     </nav>
   );

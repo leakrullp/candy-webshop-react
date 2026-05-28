@@ -30,16 +30,27 @@ export type LoadProductsProps = {
   currentUser: User | null;
 };
 
+export type UserBasketItem = {
+  productId: number;
+  quantity: number;
+};
+
 export type User = {
   customerId: string;
   firstname: string;
   lastname: string;
   email: string;
   password: string;
-  items: Array<{ productId: number; quantity: number }>;
+  items: Array<UserBasketItem>;
 };
 
 export type FilterPageProps = {
   countries: string[];
   categories: string[];
+  discounted: boolean;
+};
+
+export type CardProps = {
+  product: Product;
+  currentUser: User | null;
 };
