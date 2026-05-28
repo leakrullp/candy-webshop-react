@@ -1,56 +1,42 @@
-import { useEffect, useState } from "react";
-import { fetchProducts } from "../../services/productsService";
+import { useParams } from "react-router-dom";
 import { getCurrentPrice } from "../../utils/priceUtils";
-import type { Product } from "../../types";
+import type { LoadProductsProps } from "../../types";
 import { handleAddToCart } from "../../utils/cartUtils";
 import "./ProductDetailPage.css";
 
-export default function ProductDetailPage() {
-  const [product, setProduct] = useState<Product | null>(null);
+export default function ProductDetailPage({
+  products,
+  loading,
+  error,
+  currentUser,
+}: LoadProductsProps) {
+  const { id } = useParams<{ id: string }>();
+  const selectedProduct = products.find((p) => String(p.id) === String(id));
 
-  useEffect(() => {
-    const loadProduct = async () => {
-      const products = await fetchProducts();
+  if (loading) return <div className="status-message">Loading products...</div>;
+  if (error) return <div className="status-message error">Error: {error}</div>;
+  if (!selectedProduct)
+    return <div className="status-message">Product not found.</div>;
 
-      const selectedProductId = Number(
-        localStorage.getItem("selectedProductId"),
-      );
-
-      const foundProduct = products.find((p) => p.id === selectedProductId);
-
-      if (foundProduct) {
-        setProduct(foundProduct);
-      }
-    };
-
-    loadProduct();
-  }, []);
-
-  if (!product) {
-    return <p>Loading product...</p>;
-  }
-
-  const price = getCurrentPrice(product);
+  const price = getCurrentPrice(selectedProduct);
 
   return (
     <main id="full-container">
-      <img id="product-image" src={product.image} alt={product.name} />
+      <img
+        id="product-image"
+        src={selectedProduct.image}
+        alt={selectedProduct.name}
+      />
 
       <div id="product-details-container">
-        <h1 id="product-name">{product.name}</h1>
-
+        <h1 id="product-name">{selectedProduct.name}</h1>
         <h2 id="product-price">Price: {price.toFixed(2)} kr.</h2>
-
-        <p>Country: {product.country}</p>
-
-        <p>Weight: {product.weight}g</p>
-
-        <p>Brand: {product.brand}</p>
-
-        <p>{product.description}</p>
-
+        <p>Country: {selectedProduct.country}</p>
+        <p>Weight: {selectedProduct.weight}g</p>
+        <p>Brand: {selectedProduct.brand}</p>
+        <p>{selectedProduct.description}</p>
         <button
-          onClick={() => handleAddToCart(product.id)}
+          onClick={() => handleAddToCart(currentUser, selectedProduct.id)}
           id="add-to-cart-btn"
         >
           Add to Cart

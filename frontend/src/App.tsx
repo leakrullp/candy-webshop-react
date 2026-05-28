@@ -73,10 +73,25 @@ function AppContent() {
         <Route
           path="/country/:country"
           element={
-            <CountryPage products={products} loading={loading} error={error} />
+            <CountryPage
+              products={products}
+              loading={loading}
+              error={error}
+              currentUser={currentUser}
+            />
           }
         />
-        <Route path="/products/:id" element={<ProductDetailPage />} />
+        <Route
+          path="/products/:id"
+          element={
+            <ProductDetailPage
+              products={products}
+              loading={loading}
+              error={error}
+              currentUser={currentUser}
+            />
+          }
+        />
       </Routes>
     </>
   );
