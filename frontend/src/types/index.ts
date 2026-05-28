@@ -30,7 +30,7 @@ export type LoadProductsProps = {
   currentUser: User | null;
 };
 
-export type UserBasketItem = {
+type UserBasketItem = {
   productId: number;
   quantity: number;
 };

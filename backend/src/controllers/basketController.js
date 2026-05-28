@@ -1,6 +1,6 @@
 import { getData, saveData } from "../serverUtil.js";
 
-const data = getData(); //get data once
+const data = getData();
 
 export const createBasketForCustomer = (req, res) => {
   const existing = data.baskets.find(
@@ -15,26 +15,6 @@ export const createBasketForCustomer = (req, res) => {
 
   const newBasket = {
     customerId: req.params.customerId,
-    items: [],
-  };
-
-  data.baskets.push(newBasket);
-  saveData(data);
-
-  res.status(201).json({ message: "Basket created", basket: newBasket });
-};
-
-export const createBasketForEmail = (req, res) => {
-  const existing = data.baskets.find((b) => b.email === req.params.email);
-
-  if (existing) {
-    return res
-      .status(200)
-      .json({ message: "Basket already exists", basket: existing });
-  }
-
-  const newBasket = {
-    email: req.params.email,
     items: [],
   };
 
@@ -71,9 +51,9 @@ export const addItemToBasket = (req, res) => {
   const item = basket.items.find((i) => i.productId === productId);
 
   if (item) {
-    item.quantity += quantity; // Increase quantity if item already in basket
+    item.quantity += quantity;
   } else {
-    basket.items.push({ productId, quantity }); // Add new item
+    basket.items.push({ productId, quantity });
   }
 
   saveData(data);

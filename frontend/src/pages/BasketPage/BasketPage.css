@@ -16,7 +16,7 @@
 }
 
 #cart-sum {
-  color: red;
+  color: var(--red);
   margin-bottom: 3rem;
   text-decoration: underline;
   text-align: center;

@@ -7,8 +7,8 @@ import {
   handleUpdateQuantity,
   removeItem,
   updateQuantity,
-  calculateTotal,
 } from "../../utils/cartUtils";
+import { calculateTotal } from "../../utils/priceUtils";
 import "./BasketPage.css";
 import { getBasket } from "../../services/basketService";
 

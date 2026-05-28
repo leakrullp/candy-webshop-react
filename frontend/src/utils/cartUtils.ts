@@ -1,14 +1,6 @@
 import { addToBasket, removeFromBasket } from "../services/basketService";
 import type { User, BasketProduct } from "../types";
 
-export const calculateItemTotal = (item: BasketProduct) => {
-  return item.price * item.quantity;
-};
-
-export const calculateTotal = (items: BasketProduct[]) => {
-  return items.reduce((sum, item) => sum + calculateItemTotal(item), 0);
-};
-
 export const removeItem = (items: BasketProduct[], id: number) => {
   return items.filter((item) => item.productId !== id);
 };

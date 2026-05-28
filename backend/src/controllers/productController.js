@@ -1,6 +1,6 @@
 import { getData, getCurrentPrice } from "../serverUtil.js";
 
-const data = getData(); //get data once
+const data = getData();
 
 export const getAllProducts = (req, res) => {
   const productsWithPrice = data.products.map((p) => ({

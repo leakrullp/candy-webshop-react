@@ -41,7 +41,7 @@
 }
 
 .cart-count {
-  background: red;
+  background: var(--red);
   color: white;
   font-size: 12px;
   padding: 2px 6px;

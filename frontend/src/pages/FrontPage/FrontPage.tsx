@@ -18,11 +18,11 @@ export default function FrontPage({
       {!loading && (
         <>
           <header className="text-center mb-5"></header>
-          <h1 className="display-4 fw-bold" id="welcome-header">
+          <h2 className="display-4 fw-bold" id="welcome-header">
             {name
               ? `Welcome to a world of candy, ${name}!!`
               : "Welcome to a world of candy"}
-          </h1>
+          </h2>
 
           <Carousel />
           <ProductBanner

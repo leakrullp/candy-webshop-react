@@ -1,7 +1,8 @@
 #welcome-header {
-  color: #b8a25f !important;
+  color: var(--beige) !important;
   text-align: center;
-}#welcome-header {
-  color: #b8a25f !important;
+}
+#welcome-header {
+  color: var(--beige) !important;
   text-align: center;
 }

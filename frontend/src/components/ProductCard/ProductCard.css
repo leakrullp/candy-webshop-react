@@ -60,5 +60,5 @@
 
 .product-card button:hover {
   background: var(--beige);
-  color: white;
+  color: var(--white);
 }
