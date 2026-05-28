@@ -11,7 +11,7 @@ import {
   CountryPage,
 } from "./pages";
 import { useState, useEffect } from "react";
-import type { User, UserBasketItem } from "./types";
+import type { User } from "./types";
 
 function AppContent() {
   const { products, loading, error } = useProducts();

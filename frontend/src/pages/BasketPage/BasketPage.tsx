@@ -2,14 +2,15 @@ import { useEffect, useState } from "react";
 import { BasketItem } from "../../components";
 import { getCurrentPrice } from "../../utils/priceUtils";
 import type { BasketProduct, LoadProductsProps } from "../../types";
-import { handleRemove, handleUpdateQuantity } from "../../utils/cartUtils";
-import "./BasketPage.css";
 import {
+  handleRemove,
+  handleUpdateQuantity,
   removeItem,
   updateQuantity,
   calculateTotal,
-  getBasket,
-} from "../../services/basketService";
+} from "../../utils/cartUtils";
+import "./BasketPage.css";
+import { getBasket } from "../../services/basketService";
 
 export default function BasketPage({
   products,
@@ -53,12 +54,12 @@ export default function BasketPage({
   }, [products, currentUser]);
 
   const removeBasketItem = async (id: number) => {
-    await handleRemove(id);
+    await handleRemove(currentUser, id);
     setItems((currentItems) => removeItem(currentItems, id));
   };
 
   const updateBasketQuantity = async (id: number, quantity: number) => {
-    await handleUpdateQuantity(id, quantity);
+    await handleUpdateQuantity(currentUser, id, quantity);
     setItems((currentItems) => updateQuantity(currentItems, id, quantity));
   };
 
@@ -90,25 +91,6 @@ export default function BasketPage({
           )}
         </div>
       )}
-
-      {/* <div id="basket-container">
-        {items.length === 0 ? (
-          <p>Your basket is empty.</p>
-        ) : (
-          <>
-            {items.map((item) => (
-              <BasketItem
-                key={item.productId}
-                item={item}
-                onRemove={removeBasketItem}
-                onUpdateQuantity={updateBasketQuantity}
-              />
-            ))}
-
-            <h2 id="cart-sum">Total: {total.toFixed(2)} kr.</h2>
-          </>
-        )}
-      </div> */}
     </main>
   );
 }
