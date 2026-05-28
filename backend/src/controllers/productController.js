@@ -39,3 +39,8 @@ export const getProductsByCategory = (req, res) => {
   }
   res.status(200).json({ products });
 };
+
+export const getCountries = (req, res) => {
+  const countries = [...new Set(data.products.map((p) => p.country))];
+  res.status(200).json({ countries });
+};

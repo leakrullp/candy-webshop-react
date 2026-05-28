@@ -2,6 +2,7 @@ import express from "express";
 import {
   getAllProducts,
   getCategories,
+  getCountries,
   getProductById,
   getProductsByCategory,
 } from "../controllers/productController.js";
