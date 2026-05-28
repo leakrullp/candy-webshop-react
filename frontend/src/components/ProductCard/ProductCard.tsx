@@ -21,7 +21,6 @@ export const ProductCard = ({ product, currentUser }: CardProps) => {
 
   const handleAddToCartClick = async () => {
     const user = currentUserRef.current;
-    console.log("handleAddToCartClick fired, currentUser:", user);
 
     if (user) {
       await handleAddToCart(user, product.id);

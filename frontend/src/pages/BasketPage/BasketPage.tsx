@@ -2,14 +2,15 @@ import { useEffect, useState } from "react";
 import { BasketItem } from "../../components";
 import { getCurrentPrice } from "../../utils/priceUtils";
 import type { BasketProduct, LoadProductsProps } from "../../types";
-import { handleRemove, handleUpdateQuantity } from "../../utils/cartUtils";
-import "./BasketPage.css";
 import {
+  handleRemove,
+  handleUpdateQuantity,
   removeItem,
   updateQuantity,
   calculateTotal,
-  getBasket,
-} from "../../services/basketService";
+} from "../../utils/cartUtils";
+import "./BasketPage.css";
+import { getBasket } from "../../services/basketService";
 
 export default function BasketPage({
   products,
@@ -53,12 +54,12 @@ export default function BasketPage({
   }, [products, currentUser]);
 
   const removeBasketItem = async (id: number) => {
-    await handleRemove(id);
+    await handleRemove(currentUser, id);
     setItems((currentItems) => removeItem(currentItems, id));
   };
 
   const updateBasketQuantity = async (id: number, quantity: number) => {
-    await handleUpdateQuantity(id, quantity);
+    await handleUpdateQuantity(currentUser, id, quantity);
     setItems((currentItems) => updateQuantity(currentItems, id, quantity));
   };
 
