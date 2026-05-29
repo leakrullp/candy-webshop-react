@@ -1,4 +1,5 @@
-import React from "react";
+import { useState } from "react";
+import type { SubmitEvent } from "react";
 import { Container, Row, Form, Button } from "react-bootstrap";
 
 interface RegisterProps {
@@ -11,12 +12,12 @@ interface RegisterProps {
 }
 const isValidEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,}$/;
 
-const Register: React.FC<RegisterProps> = ({ onRegister }) => {
-  const [fname, setFname] = React.useState("");
-  const [lname, setLname] = React.useState("");
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
-  const [error, setError] = React.useState("");
+function Register({ onRegister }: RegisterProps) {
+  const [fname, setFname] = useState("");
+  const [lname, setLname] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   const validateEmail = (email: string) => {
     if (!isValidEmail.test(email)) {
@@ -26,9 +27,8 @@ const Register: React.FC<RegisterProps> = ({ onRegister }) => {
     return true;
   };
 
-  const handleSubmit = (e: React.SubmitEvent) => {
+  const handleSubmit = (e: SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setError("");
 
     if (!fname || !lname || !email || !password) {
       setError("Please fill in all fields.");
@@ -42,7 +42,7 @@ const Register: React.FC<RegisterProps> = ({ onRegister }) => {
     try {
       onRegister(fname, lname, email, password);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Register failed.");
+      setError(err instanceof Error ? err.message : "Registration failed.");
     }
   };
 
@@ -102,6 +102,6 @@ const Register: React.FC<RegisterProps> = ({ onRegister }) => {
       </Row>
     </Container>
   );
-};
+}
 
 export default Register;

@@ -125,8 +125,8 @@ export default function FilterBox({ filters, setFilters }: FilterBoxProps) {
               <FilterCheckInput
                 key="Discounted"
                 value="Discounted products"
-                checked={filters.discounted} // Direct boolean check
-                onChange={handleDiscountToggle} // Direct state inversion
+                checked={filters.discounted}
+                onChange={handleDiscountToggle}
               />
             </div>
           </div>

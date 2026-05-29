@@ -6,7 +6,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const dataPath = path.join(__dirname, "../data/data.json");
 
-let cache = null; //avoids redundant server calls
+let cache = null;
 
 export const getData = () => {
   if (!cache) {

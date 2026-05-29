@@ -13,6 +13,7 @@
   --text-light: #777;
   --bg: #f7f7f5;
   --white: #ffffff;
+  --red: #e53e3e;
 }
 
 body {
@@ -22,9 +23,9 @@ body {
 }
 
 .btn-primary {
-  background-color: #b8a25f !important;
+  background-color: var(--beige) !important;
 }
 
 .btn-secondary {
-  background-color: #777 !important;
+  background-color: var(--text-light) !important;
 }

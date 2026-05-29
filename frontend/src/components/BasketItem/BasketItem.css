@@ -20,7 +20,7 @@
 }
 
 .basket-info {
-  flex: 1; 
+  flex: 1;
 }
 
 .remove-btn {
@@ -41,7 +41,6 @@
   color: white;
 }
 
-/* Quantity controls Basket */
 .quantity-controls {
   display: flex;
   align-items: center;

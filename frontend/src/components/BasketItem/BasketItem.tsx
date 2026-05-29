@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { calculateItemTotal } from "../../utils/cartUtils";
+import { calculateItemTotal } from "../../utils/priceUtils";
 import type { BasketProduct } from "../../types";
 import "./BasketItem.css";
 
